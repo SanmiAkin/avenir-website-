@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avenir Microfinance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark: #0f2d1f;
+      --dark-mid: #1a4530;
+      --green: #5ab92c;
+      --green-dark: #3d8a18;
+      --green-light: #eef7e8;
+      --green-tint: #f4faf0;
+      --off-white: #f8faf7;
+      --text: #111a14;
+      --text-mid: #3a4d3e;
+      --text-muted: #6b7f6e;
+      --border: #ddebd5;
+      --white: #ffffff;
+      --radius: 14px;
+      --radius-lg: 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-mid);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--dark); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-toggle {
+      display: flex;
+      background: var(--green-light);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      padding: 5px 12px;
+      border: none;
+      background: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: var(--green);
+      color: var(--white);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: none;
+      color: var(--dark);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover { border-color: var(--dark); background: var(--green-light); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 0 56px;
+      background: var(--off-white);
+      min-height: calc(100vh - 76px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-bg-shape {
+      position: absolute;
+      top: -80px;
+      right: -120px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, #c8edaf 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .hero-bg-shape-2 {
+      position: absolute;
+      bottom: -60px;
+      left: -80px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(ellipse, #d4f0c0 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 80px;
+      padding: 80px 0;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .hero-tag-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 5.5vw, 80px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -3px;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .accent { color: var(--green); }
+
+    .hero p {
+      font-size: 19px;
+      line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .hero-ctas .btn-primary { padding: 16px 36px; font-size: 16px; border-radius: 14px; }
+    .hero-ctas .btn-outline { padding: 16px 36px; font-size: 16px; border-radius: 14px; }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -1px;
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-card-stack {
+      position: relative;
+      width: 420px;
+      height: 460px;
+    }
+
+    .hero-card {
+      position: absolute;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(15,45,31,0.12);
+      padding: 28px;
+    }
+
+    .hero-card-main {
+      width: 360px;
+      top: 30px;
+      left: 20px;
+      background: var(--dark);
+      color: white;
+    }
+
+    .hero-card-main .card-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 8px;
+    }
+
+    .hero-card-main .card-amount {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .hero-card-main .card-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 24px;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .card-action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-action-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-action-label {
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+    }
+
+    .card-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 16px;
+    }
+
+    .card-activity-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .card-activity-label { font-size: 11px; color: rgba(255,255,255,0.55); }
+    .card-activity-amount { font-size: 12px; font-weight: 700; color: var(--green); }
+    .card-activity-amount.neg { color: rgba(255,255,255,0.5); }
+
+    .hero-card-badge {
+      width: 190px;
+      bottom: 30px;
+      right: -10px;
+      background: var(--white);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .badge-label { font-size: 10px; color: var(--text-muted); font-weight: 500; }
+    .badge-value { font-size: 16px; font-weight: 800; color: var(--dark); margin-top: 1px; }
+
+    /* ─── FEATURES ─── */
+    .features {
+      padding: 80px 56px;
+      background: var(--white);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 48px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(32px, 3.5vw, 52px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--green-tint);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(15,45,31,0.08);
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--white);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(15,45,31,0.08);
+    }
+
+    .feature-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how {
+      padding: 80px 56px;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .how::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(90,185,44,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .how .section-eyebrow { color: var(--green); }
+
+    .how .section-header h2 { color: var(--white); }
+    .how .section-header p { color: rgba(255,255,255,0.55); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(16.66% + 28px);
+      right: calc(16.66% + 28px);
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      margin: 0 auto 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+    }
+
+    /* ─── APP COMING SOON ─── */
+    .app-section {
+      padding: 80px 56px;
+      background: var(--green-tint);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .app-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .app-tag {
+      display: inline-block;
+      background: var(--dark);
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .app-section h2 {
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .app-section p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+
+    .app-store-badges {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .app-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--dark);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-badge-coming {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15,45,31,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--green);
+      text-transform: uppercase;
+    }
+
+    .app-badge-label { font-size: 10px; color: rgba(255,255,255,0.6); line-height: 1; }
+    .app-badge-store { font-size: 15px; font-weight: 700; color: white; line-height: 1; margin-top: 2px; }
+
+    .app-visual-placeholder {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 2px dashed var(--border);
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+    }
+
+    .app-visual-placeholder span:first-child {
+      font-size: 40px;
+      opacity: 0.3;
+    }
+
+    .app-visual-placeholder span:last-child {
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.5;
+      font-family: monospace;
+    }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      padding: 72px 56px;
+      background: var(--dark-mid);
+    }
+
+    .cta-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cta-text h2 {
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 800;
+      color: white;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .cta-text p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 28px;
+      background: white;
+      color: var(--dark);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-white:hover { background: var(--green-light); }
+
+    .btn-outline-white {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 28px;
+      background: none;
+      color: white;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.05); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      padding: 56px 56px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 32px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 240px;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li { margin-bottom: 10px; }
+
+    .footer-col ul li a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--green); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-legal a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,25,15,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      width: 100%;
+      max-width: 480px;
+      margin: 20px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: var(--green-light);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .modal h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .modal > p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-mid);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--green);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .modal .btn-primary {
+      width: 100%;
+      justify-content: center;
+      padding: 14px;
+      font-size: 15px;
+      border-radius: 12px;
+      margin-top: 8px;
+    }
+
+    .modal-success {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .modal-success .success-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 28px;
+    }
+
+    .modal-success h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .modal-success p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── TRUST BAR ─── */
+    .trust-bar {
+      background: var(--dark);
+      padding: 16px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+    }
+
+    .trust-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 0 20px; min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 60px 0; }
+      .hero-visual { display: none; }
+      .features { padding: 72px 20px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .how { padding: 72px 20px; }
+      .steps { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      .app-section { padding: 60px 20px; }
+      .app-inner { grid-template-columns: 1fr; gap: 40px; }
+      .cta-banner { padding: 60px 20px; }
+      .cta-inner { flex-direction: column; align-items: flex-start; }
+      footer { padding: 48px 20px 24px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 560px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .trust-bar { gap: 20px; padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="avenir-logo.png" alt="Avenir Microfinance" style="height:58px;width:auto;" />
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="loans.html" data-en="Loans" data-fr="Prêts">Loans</a></li>
+    <li><a href="#how" data-en="How It Works" data-fr="Comment ça marche">How It Works</a></li>
+    <li><a href="about.html" data-en="About Us" data-fr="À propos">About Us</a></li>
+    <li><a href="legal.html" data-en="Legal" data-fr="Mentions légales">Legal</a></li>
+    <li><a href="#contact" data-en="Contact Us" data-fr="Contact">Contact Us</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('fr')">FR</button>
+    </div>
+    <button class="btn-primary" onclick="openModal('apply')" data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</button>
+  </div>
+</nav>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-dot"></div><span data-en="Licensed Microfinance Institution — DRC" data-fr="Institution de microfinance agréée — RDC">Licensed Microfinance Institution — DRC</span></div>
+  <div class="trust-item"><div class="trust-dot"></div><span data-en="100% Secure Transactions" data-fr="Transactions 100% sécurisées">100% Secure Transactions</span></div>
+  <div class="trust-item"><div class="trust-dot"></div><span data-en="USSD · App · Agent Network" data-fr="USSD · Application · Réseau d'agents">USSD · App · Agent Network</span></div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-bg-shape-2"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        <span data-en="Digital Microfinance · DRC" data-fr="Microfinance Numérique · RDC">Digital Microfinance · DRC</span>
+      </div>
+      <h1>
+        <span data-en-html="Finance that moves your business <span class='accent'>forward.</span>" data-fr-html="La finance au service de votre <span class='accent'>croissance.</span>">Finance that moves your business <span class="accent">forward.</span></span>
+      </h1>
+      <p data-en="Digital credit and financial solutions built for underserved communities, SMEs and informal businesses across the DRC." data-fr="Des paiements simples, du crédit accessible et des outils financiers conçus pour votre quotidien.">Digital credit and financial solutions built for underserved communities, SMEs and informal businesses across the DRC.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="openModal('apply')" data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</button>
+        <button class="btn-outline" onclick="openModal('eligibility')" data-en="Check Eligibility" data-fr="Vérifier mon éligibilité">Check Eligibility</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <!-- Main card -->
+        <div class="hero-card hero-card-main">
+          <div class="card-label" data-en="Available Credit" data-fr="Crédit disponible">Available Credit</div>
+          <div class="card-amount">$1,250</div>
+          <div class="card-sub" data-en="Approved limit: $2,000" data-fr="Limite approuvée: 2.000 USD">Approved limit: $2,000</div>
+          <div class="card-actions">
+            <div class="card-action-btn">
+              <div class="card-action-icon">
+                <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="card-action-label" data-en="Send" data-fr="Envoyer">Send</div>
+            </div>
+            <div class="card-action-btn">
+              <div class="card-action-icon">
+                <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              </div>
+              <div class="card-action-label" data-en="Receive" data-fr="Recevoir">Receive</div>
+            </div>
+            <div class="card-action-btn">
+              <div class="card-action-icon">
+                <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              </div>
+              <div class="card-action-label" data-en="Pay" data-fr="Payer">Pay</div>
+            </div>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-activity-row">
+            <div class="card-activity-label" data-en="Credit disbursed" data-fr="Crédit accordé">Credit disbursed</div>
+            <div class="card-activity-amount">+$1,250</div>
+          </div>
+          <div class="card-activity-row">
+            <div class="card-activity-label" data-en="Repayment" data-fr="Remboursement">Repayment</div>
+            <div class="card-activity-amount neg">−$150</div>
+          </div>
+        </div>
+        <!-- Badge -->
+        <div class="hero-card hero-card-badge">
+          <div class="badge-icon">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#5ab92c" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <div>
+            <div class="badge-label" data-en="Loan Approved" data-fr="Prêt approuvé">Loan Approved</div>
+            <div class="badge-value">$2,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat strip -->
+  <div style="max-width:1280px;margin:0 auto;width:100%;padding:0 0 48px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border);">
+
+      <!-- 48h -->
+      <div style="padding:32px 48px 32px 0;border-right:1px solid var(--border);display:flex;gap:28px;align-items:flex-start;">
+        <div style="flex-shrink:0;">
+          <div style="font-size:60px;font-weight:800;color:var(--dark);letter-spacing:-3px;line-height:1;">48<span style="color:var(--green);">h</span></div>
+        </div>
+        <div style="padding-top:8px;">
+          <div style="font-size:18px;font-weight:700;color:var(--dark);margin-bottom:8px;" data-en="Fast approval, every time" data-fr="Approbation rapide, à chaque fois">Fast approval, every time</div>
+          <div style="font-size:15px;color:var(--text-muted);line-height:1.7;" data-en="From application to decision in under 48 hours. Our digital-first process cuts out the red tape so you can focus on what matters — growing your business." data-fr="De la demande à la décision en moins de 48 heures. Notre processus entièrement numérique élimine la bureaucratie pour que vous puissiez vous concentrer sur ce qui compte : développer votre activité.">From application to decision in under 48 hours. Our digital-first process cuts out the red tape so you can focus on what matters — growing your business.</div>
+        </div>
+      </div>
+
+      <!-- 26+ provinces -->
+      <div style="padding:32px 0 32px 48px;display:flex;gap:28px;align-items:flex-start;">
+        <div style="flex-shrink:0;">
+          <div style="font-size:60px;font-weight:800;color:var(--dark);letter-spacing:-3px;line-height:1;">26<span style="color:var(--green);">+</span></div>
+        </div>
+        <div style="padding-top:8px;">
+          <div style="font-size:18px;font-weight:700;color:var(--dark);margin-bottom:8px;" data-en="Nationwide reach across the DRC" data-fr="Couverture nationale à travers la RDC">Nationwide reach across the DRC</div>
+          <div style="font-size:15px;color:var(--text-muted);line-height:1.7;" data-en="Operating across all 26 provinces, from Kinshasa to Katanga. Whether you're in a major city or a rural community, Avenir is built to reach you." data-fr="Opérant dans les 26 provinces, de Kinshasa au Katanga. Que vous soyez dans une grande ville ou une communauté rurale, Avenir est conçu pour vous atteindre.">Operating across all 26 provinces, from Kinshasa to Katanga. Whether you're in a major city or a rural community, Avenir is built to reach you.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="about">
+  <div class="section-header" style="max-width:700px;">
+    <div class="section-eyebrow" data-en="Why Avenir" data-fr="Pourquoi Avenir">Why Avenir</div>
+    <h2 data-en="Built for every Congolese entrepreneur" data-fr="Conçu pour chaque entrepreneur congolais">Built for every Congolese entrepreneur</h2>
+    <p data-en="Whether you run a market stall, a growing SME, or work in the gig economy — Avenir has the financial tools you need." data-fr="Que vous teniez un étal au marché, une PME en croissance ou que vous travailliez dans l'économie informelle — Avenir a les outils qu'il vous faut.">Whether you run a market stall, a growing SME, or work in the gig economy — Avenir has the financial tools you need.</p>
+  </div>
+  <div class="features-grid" style="max-width:1280px;">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+      </div>
+      <h3 data-en="Digital First" data-fr="Digital d'abord">Digital First</h3>
+      <p data-en="Access loans and services via your phone — USSD, App or Agent. No branch visits required." data-fr="Accédez aux prêts et services depuis votre téléphone — USSD, application ou agent. Aucune visite en agence requise.">Access loans and services via your phone — USSD, App or Agent. No branch visits required.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
+      </div>
+      <h3 data-en="Built for You" data-fr="Conçu pour vous">Built for You</h3>
+      <p data-en="Designed for the gig economy, informal traders and SMEs — not just salaried employees." data-fr="Pensé pour les travailleurs indépendants, les PME et l'économie informelle — pas seulement les salariés.">Designed for the gig economy, informal traders and SMEs — not just salaried employees.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3 data-en="Trusted & Secure" data-fr="Sécurisé et fiable">Trusted & Secure</h3>
+      <p data-en="Your data is protected. Your transactions are secured by bank-grade encryption." data-fr="Vos données sont protégées. Vos transactions sont sécurisées par un cryptage bancaire.">Your data is protected. Your transactions are secured by bank-grade encryption.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+      </div>
+      <h3 data-en="Empowering Communities" data-fr="Au service des communautés">Empowering Communities</h3>
+      <p data-en="We grow with you and support local economies across the DRC to thrive." data-fr="Nous grandissons avec vous et soutenons les économies locales partout en RDC.">We grow with you and support local economies across the DRC to thrive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-header">
+    <div class="section-eyebrow" data-en="The Process" data-fr="Le processus">The Process</div>
+    <h2 data-en="Three steps to funding" data-fr="Trois étapes pour obtenir un financement">Three steps to funding</h2>
+    <p data-en="Apply in minutes. Get an instant decision. Receive money in your account fast." data-fr="Faites votre demande en quelques minutes. Obtenez une décision instantanée. Recevez l'argent rapidement.">Apply in minutes. Get an instant decision. Receive money in your account fast.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3 data-en="Apply" data-fr="Faites votre demande">Apply</h3>
+      <p data-en="Fill in your details online, via USSD or through a local agent. Takes under 5 minutes." data-fr="Renseignez vos informations en ligne, par USSD ou via un agent local. Moins de 5 minutes.">Fill in your details online, via USSD or through a local agent. Takes under 5 minutes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3 data-en="Review" data-fr="Nous examinons">Review</h3>
+      <p data-en="Our system reviews your application and provides an instant credit decision." data-fr="Notre système examine votre dossier et fournit une décision de crédit instantanée.">Our system reviews your application and provides an instant credit decision.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3 data-en="Get Funded" data-fr="Recevez votre financement">Get Funded</h3>
+      <p data-en="Once approved, funds are sent directly to your mobile wallet or bank account." data-fr="Une fois approuvé, les fonds sont envoyés directement sur votre portefeuille mobile ou compte bancaire.">Once approved, funds are sent directly to your mobile wallet or bank account.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APP COMING SOON -->
+<section class="app-section" id="app">
+  <div class="app-inner">
+    <div>
+      <div class="app-tag" data-en="Mobile App" data-fr="Application mobile">Mobile App</div>
+      <h2 data-en="Everything you need, right in your pocket." data-fr="Tout ce dont vous avez besoin, dans votre poche.">Everything you need, right in your pocket.</h2>
+      <p data-en="Manage your credit, make payments and grow your business on the go. The Avenir app is coming soon to iOS and Android." data-fr="Gérez votre crédit, effectuez des paiements et développez votre activité où que vous soyez. L'application Avenir arrive bientôt sur iOS et Android.">Manage your credit, make payments and grow your business on the go. The Avenir app is coming soon to iOS and Android.</p>
+      <div class="app-store-badges">
+        <a href="#" class="app-badge">
+          <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div>
+            <div class="app-badge-label" data-en="Download on the" data-fr="Télécharger sur">Download on the</div>
+            <div class="app-badge-store">App Store</div>
+          </div>
+          <div class="app-badge-coming" data-en="Coming Soon" data-fr="Bientôt disponible">Coming Soon</div>
+        </a>
+        <a href="#" class="app-badge">
+          <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="m3 20.5v-17c0-.83 1-.83 1.5-.5L20 12l-15.5 8.5c-.5.33-1.5.33-1.5-.5zm1-1.32L17 12 4 4.82v14.36z"/></svg>
+          <div>
+            <div class="app-badge-label" data-en="Get it on" data-fr="Disponible sur">Get it on</div>
+            <div class="app-badge-store">Google Play</div>
+          </div>
+          <div class="app-badge-coming" data-en="Coming Soon" data-fr="Bientôt disponible">Coming Soon</div>
+        </a>
+      </div>
+    </div>
+    <div class="app-visual" style="display:flex;gap:24px;align-items:flex-end;justify-content:center;">
+      <img src="app-screen-home.png" alt="Avenir App Home Screen"
+           style="width:220px;height:auto;border-radius:28px;box-shadow:0 24px 60px rgba(15,45,31,0.18);position:relative;z-index:2;" />
+      <img src="app-screen-fr.png" alt="Avenir App Screen"
+           style="width:190px;height:auto;border-radius:24px;box-shadow:0 16px 40px rgba(15,45,31,0.12);margin-bottom:24px;opacity:0.88;" />
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contact">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2 data-en="Ready to grow your business?" data-fr="Besoin d'un financement ?">Ready to grow your business?</h2>
+      <p data-en="Apply in minutes and get funded faster." data-fr="Demandez un crédit en quelques minutes et recevez une réponse rapide.">Apply in minutes and get funded faster.</p>
+    </div>
+    <div class="cta-buttons">
+      <button class="btn-white" onclick="openModal('apply')" data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</button>
+      <button class="btn-outline-white" onclick="openModal('eligibility')" data-en="Check Eligibility" data-fr="Vérifier mon éligibilité">Check Eligibility</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">
+          <span style="display:inline-block;background:white;border-radius:10px;padding:6px 14px;">
+            <img src="avenir-logo.png" alt="Avenir Microfinance" style="height:36px;width:auto;display:block;" />
+          </span>
+        </a>
+        <p data-en="Digital credit and financial solutions built for underserved communities, SMEs and informal businesses across the DRC." data-fr="Des solutions financières numériques conçues pour les communautés mal desservies, les PME et les entreprises informelles en RDC.">Digital credit and financial solutions built for underserved communities, SMEs and informal businesses across the DRC.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Company" data-fr="Entreprise">Company</h4>
+        <ul>
+          <li><a href="about.html" data-en="About Us" data-fr="À propos">About Us</a></li>
+          <li><a href="loans.html" data-en="Loan Products" data-fr="Produits de prêt">Loan Products</a></li>
+          <li><a href="#how" data-en="How It Works" data-fr="Comment ça marche">How It Works</a></li>
+          <li><a href="#" data-en="Careers" data-fr="Carrières">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Legal" data-fr="Mentions légales">Legal</h4>
+        <ul>
+          <li><a href="legal.html#privacy" data-en="Privacy Policy" data-fr="Confidentialité">Privacy Policy</a></li>
+          <li><a href="legal.html#terms" data-en="Terms &amp; Conditions" data-fr="Conditions">Terms &amp; Conditions</a></li>
+          <li><a href="legal.html#disclosures" data-en="Loan Disclosures" data-fr="Divulgations">Loan Disclosures</a></li>
+          <li><a href="legal.html#responsible" data-en="Responsible Lending" data-fr="Prêt responsable">Responsible Lending</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Contact" data-fr="Contact">Contact</h4>
+        <ul>
+          <li><a href="mailto:customersupport@avenirmfb.com">customersupport@avenirmfb.com</a></li>
+          <li><a href="#" data-en="Gombe, Kinshasa, DRC" data-fr="Gombe, Kinshasa, RDC">Gombe, Kinshasa, DRC</a></li>
+          <li><a href="legal.html#privacy" data-en="Privacy Policy" data-fr="Politique de confidentialité">Privacy Policy</a></li>
+          <li><a href="legal.html#terms" data-en="Terms & Conditions" data-fr="Conditions d'utilisation">Terms & Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        <span data-en="© 2026 Avenir Microfinance. All rights reserved." data-fr="© 2026 Avenir Microfinance. Tous droits réservés.">© 2026 Avenir Microfinance. All rights reserved.</span>
+      </div>
+      <div class="footer-legal">
+        <a href="legal.html#privacy" data-en="Privacy Policy" data-fr="Confidentialité">Privacy Policy</a>
+        <a href="legal.html#terms" data-en="Terms & Conditions" data-fr="Conditions d'utilisation">Terms & Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- APPLY MODAL -->
+<div class="modal-overlay" id="modal-apply" onclick="handleOverlayClick(event,'modal-apply')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-apply')">✕</button>
+    <div id="apply-form-content">
+      <h2 data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</h2>
+      <p data-en="Fill in your details below and we'll get back to you within 48 hours." data-fr="Remplissez vos coordonnées ci-dessous et nous vous répondrons dans les 48 heures.">Fill in your details below and we'll get back to you within 48 hours.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label data-en="First Name" data-fr="Prénom">First Name</label>
+          <input type="text" id="apply-firstname" placeholder="Marie" />
+        </div>
+        <div class="form-group">
+          <label data-en="Last Name" data-fr="Nom">Last Name</label>
+          <input type="text" id="apply-lastname" placeholder="Lukeba" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label data-en="Phone Number" data-fr="Numéro de téléphone">Phone Number</label>
+        <input type="tel" id="apply-phone" placeholder="+243 81 234 5678" />
+      </div>
+      <div class="form-group">
+        <label data-en="Business Type" data-fr="Type d'activité">Business Type</label>
+        <select id="apply-business">
+          <option value="" data-en="Select your business type" data-fr="Sélectionnez votre activité">Select your business type</option>
+          <option data-en="Market Trader / Commerçant" data-fr="Commerçant de marché">Market Trader / Commerçant</option>
+          <option data-en="SME / Small Business" data-fr="PME / Petite entreprise">SME / Small Business</option>
+          <option data-en="Freelancer / Gig Worker" data-fr="Indépendant / Travailleur à la tâche">Freelancer / Gig Worker</option>
+          <option data-en="Agriculture" data-fr="Agriculture">Agriculture</option>
+          <option data-en="Other" data-fr="Autre">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label data-en="Loan Amount Requested (USD)" data-fr="Montant du prêt demandé (USD)">Loan Amount Requested (USD)</label>
+        <input type="number" id="apply-amount" placeholder="500" min="100" max="10000" />
+      </div>
+      <button class="btn-primary" onclick="submitApply()">
+        <span data-en="Submit Application" data-fr="Soumettre la demande">Submit Application</span>
+      </button>
+    </div>
+    <div id="apply-success" class="modal-success" style="display:none;">
+      <div class="success-icon">✓</div>
+      <h3 data-en="Application Received!" data-fr="Demande reçue !">Application Received!</h3>
+      <p data-en="Thank you! We'll review your application and contact you within 48 hours." data-fr="Merci ! Nous examinerons votre dossier et vous contacterons dans les 48 heures.">Thank you! We'll review your application and contact you within 48 hours.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ELIGIBILITY MODAL -->
+<div class="modal-overlay" id="modal-eligibility" onclick="handleOverlayClick(event,'modal-eligibility')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-eligibility')">✕</button>
+    <div id="eligibility-form-content">
+      <h2 data-en="Check Your Eligibility" data-fr="Vérifier votre éligibilité">Check Your Eligibility</h2>
+      <p data-en="Answer a few quick questions to see if you qualify for an Avenir loan." data-fr="Répondez à quelques questions rapides pour savoir si vous êtes éligible à un prêt Avenir.">Answer a few quick questions to see if you qualify for an Avenir loan.</p>
+      <div class="form-group">
+        <label data-en="Are you 18 or older?" data-fr="Avez-vous 18 ans ou plus ?">Are you 18 or older?</label>
+        <select id="elig-age">
+          <option value="" data-en="Select" data-fr="Sélectionner">Select</option>
+          <option value="yes" data-en="Yes" data-fr="Oui">Yes</option>
+          <option value="no" data-en="No" data-fr="Non">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label data-en="Do you have a DRC phone number?" data-fr="Avez-vous un numéro de téléphone RDC ?">Do you have a DRC phone number?</label>
+        <select id="elig-phone">
+          <option value="" data-en="Select" data-fr="Sélectionner">Select</option>
+          <option value="yes" data-en="Yes" data-fr="Oui">Yes</option>
+          <option value="no" data-en="No" data-fr="Non">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label data-en="Do you have a source of income or business?" data-fr="Avez-vous une source de revenus ou une activité ?">Do you have a source of income or business?</label>
+        <select id="elig-income">
+          <option value="" data-en="Select" data-fr="Sélectionner">Select</option>
+          <option value="yes" data-en="Yes" data-fr="Oui">Yes</option>
+          <option value="no" data-en="No" data-fr="Non">No</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="checkEligibility()">
+        <span data-en="Check Now" data-fr="Vérifier maintenant">Check Now</span>
+      </button>
+    </div>
+    <div id="eligibility-result" style="display:none;" class="modal-success">
+      <div class="success-icon" id="elig-icon">✓</div>
+      <h3 id="elig-result-title">You may qualify!</h3>
+      <p id="elig-result-text">Based on your answers, you appear to be eligible for an Avenir loan. Apply now to get started.</p>
+      <button class="btn-primary" style="margin-top:20px;width:100%;justify-content:center;" onclick="closeModal('modal-eligibility');openModal('apply')">
+        <span data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "accentColor": "#5ab92c",
+    "darkColor": "#0f2d1f",
+    "bodyFont": "Plus Jakarta Sans",
+    "navStyle": "dark",
+    "heroLayout": "split",
+    "showTrustBar": true,
+    "showHowItWorks": true,
+    "showAppSection": true,
+    "heroHeadlineEN": "Finance that moves your business forward.",
+    "heroHeadlineFR": "La finance au service de votre croissance."
+  }/*EDITMODE-END*/;
+
+  function TweaksApp() {
+    const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+    React.useEffect(() => {
+      // Apply font
+      document.body.style.fontFamily = `'${tweaks.bodyFont}', sans-serif`;
+      document.querySelectorAll('nav, .modal, footer').forEach(el => {
+        el.style.fontFamily = `'${tweaks.bodyFont}', sans-serif`;
+      });
+
+      // Apply accent color
+      document.documentElement.style.setProperty('--green', tweaks.accentColor);
+      // Darken for hover — simple approach
+      document.documentElement.style.setProperty('--green-dark', shiftColor(tweaks.accentColor, -30));
+      document.documentElement.style.setProperty('--green-light', hexToLight(tweaks.accentColor));
+      document.documentElement.style.setProperty('--green-tint', hexToTint(tweaks.accentColor));
+      document.documentElement.style.setProperty('--border', hexToBorder(tweaks.accentColor));
+
+      // Apply dark color
+      document.documentElement.style.setProperty('--dark', tweaks.darkColor);
+      document.documentElement.style.setProperty('--dark-mid', lightenHex(tweaks.darkColor, 15));
+
+      // Nav style
+      const nav = document.querySelector('nav');
+      if (tweaks.navStyle === 'dark') {
+        nav.style.background = tweaks.darkColor;
+        nav.style.borderBottomColor = 'rgba(255,255,255,0.1)';
+        nav.querySelectorAll('.nav-links a').forEach(a => a.style.color = 'rgba(255,255,255,0.7)');
+        nav.querySelectorAll('.logo-text span:first-child').forEach(s => s.style.color = 'white');
+      } else {
+        nav.style.background = 'rgba(255,255,255,0.95)';
+        nav.style.borderBottomColor = '';
+        nav.querySelectorAll('.nav-links a').forEach(a => a.style.color = '');
+        nav.querySelectorAll('.logo-text span:first-child').forEach(s => s.style.color = '');
+      }
+
+      // Show/hide sections
+      const trustBar = document.querySelector('.trust-bar');
+      if (trustBar) trustBar.style.display = tweaks.showTrustBar ? '' : 'none';
+      const howSection = document.querySelector('.how');
+      if (howSection) howSection.style.display = tweaks.showHowItWorks ? '' : 'none';
+      const appSection = document.querySelector('.app-section');
+      if (appSection) appSection.style.display = tweaks.showAppSection ? '' : 'none';
+
+    }, [tweaks]);
+
+    return React.createElement(TweaksPanel, null,
+      React.createElement(TweakSection, { label: "Brand Colors" },
+        React.createElement(TweakColor, { label: "Accent Green", value: tweaks.accentColor, onChange: v => setTweak('accentColor', v) }),
+        React.createElement(TweakColor, { label: "Dark Primary", value: tweaks.darkColor, onChange: v => setTweak('darkColor', v) })
+      ),
+      React.createElement(TweakSection, { label: "Typography" },
+        React.createElement(TweakSelect, {
+          label: "Body Font",
+          value: tweaks.bodyFont,
+          options: ["Plus Jakarta Sans", "DM Sans", "Outfit"],
+          onChange: v => setTweak('bodyFont', v)
+        })
+      ),
+      React.createElement(TweakSection, { label: "Navigation" },
+        React.createElement(TweakRadio, {
+          label: "Nav Style",
+          value: tweaks.navStyle,
+          options: [{ label: "Light", value: "light" }, { label: "Dark", value: "dark" }],
+          onChange: v => setTweak('navStyle', v)
+        })
+      ),
+      React.createElement(TweakSection, { label: "Sections" },
+        React.createElement(TweakToggle, { label: "Trust Bar", value: tweaks.showTrustBar, onChange: v => setTweak('showTrustBar', v) }),
+        React.createElement(TweakToggle, { label: "How It Works", value: tweaks.showHowItWorks, onChange: v => setTweak('showHowItWorks', v) }),
+        React.createElement(TweakToggle, { label: "App Section", value: tweaks.showAppSection, onChange: v => setTweak('showAppSection', v) })
+      )
+    );
+  }
+
+  // Color helpers
+  function hexToLight(hex) {
+    const [r,g,b] = hexToRgb(hex);
+    return `rgba(${r},${g},${b},0.12)`;
+  }
+  function hexToTint(hex) {
+    const [r,g,b] = hexToRgb(hex);
+    return `rgba(${r},${g},${b},0.06)`;
+  }
+  function hexToBorder(hex) {
+    const [r,g,b] = hexToRgb(hex);
+    return `rgba(${r},${g},${b},0.25)`;
+  }
+  function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    return [r,g,b];
+  }
+  function shiftColor(hex, amount) {
+    let [r,g,b] = hexToRgb(hex);
+    r = Math.max(0,Math.min(255,r+amount));
+    g = Math.max(0,Math.min(255,g+amount));
+    b = Math.max(0,Math.min(255,b+amount));
+    return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+  }
+  function lightenHex(hex, amount) {
+    return shiftColor(hex, amount);
+  }
+
+  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(React.createElement(TweaksApp));
+</script>
+<script>
+  // ─── LANGUAGE ───
+  let currentLang = 'en';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+    document.documentElement.lang = lang;
+
+    // Update all data-en / data-fr elements
+    document.querySelectorAll('[data-en]').forEach(el => {
+      if (el.tagName !== 'OPTION') {
+        el.textContent = lang === 'fr' ? el.dataset.fr : el.dataset.en;
+      }
+    });
+
+    // HTML-based updates (hero h1)
+    document.querySelectorAll('[data-en-html]').forEach(el => {
+      el.innerHTML = lang === 'fr' ? el.dataset.frHtml : el.dataset.enHtml;
+    });
+
+    // Options
+    document.querySelectorAll('select option[data-en]').forEach(opt => {
+      opt.textContent = lang === 'fr' ? opt.dataset.fr : opt.dataset.en;
+    });
+
+    // Input placeholders
+    if (lang === 'fr') {
+      const ph = { 'apply-firstname': 'Marie', 'apply-lastname': 'Lukeba', 'apply-phone': '+243 81 234 5678', 'apply-amount': '500' };
+      Object.entries(ph).forEach(([id, val]) => { const el = document.getElementById(id); if (el) el.placeholder = val; });
+    }
+  }
+
+  // ─── MODAL ───
+  function openModal(which) {
+    // Reset forms
+    if (which === 'apply') {
+      document.getElementById('apply-form-content').style.display = '';
+      document.getElementById('apply-success').style.display = 'none';
+    }
+    if (which === 'eligibility') {
+      document.getElementById('eligibility-form-content').style.display = '';
+      document.getElementById('eligibility-result').style.display = 'none';
+    }
+    document.getElementById('modal-' + which).classList.add('open');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  function handleOverlayClick(e, id) {
+    if (e.target === document.getElementById(id)) closeModal(id);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    }
+  });
+
+  function submitApply() {
+    const firstName = document.getElementById('apply-firstname').value.trim();
+    const phone = document.getElementById('apply-phone').value.trim();
+    if (!firstName || !phone) {
+      alert(currentLang === 'fr' ? 'Veuillez remplir au moins votre prénom et votre numéro de téléphone.' : 'Please fill in at least your name and phone number.');
+      return;
+    }
+    document.getElementById('apply-form-content').style.display = 'none';
+    document.getElementById('apply-success').style.display = 'block';
+    // Update lang in success
+    setLang(currentLang);
+  }
+
+  function checkEligibility() {
+    const age = document.getElementById('elig-age').value;
+    const phone = document.getElementById('elig-phone').value;
+    const income = document.getElementById('elig-income').value;
+    if (!age || !phone || !income) {
+      alert(currentLang === 'fr' ? 'Veuillez répondre à toutes les questions.' : 'Please answer all questions.');
+      return;
+    }
+    const eligible = age === 'yes' && phone === 'yes' && income === 'yes';
+    document.getElementById('eligibility-form-content').style.display = 'none';
+    const result = document.getElementById('eligibility-result');
+    result.style.display = 'block';
+    const icon = document.getElementById('elig-icon');
+    const title = document.getElementById('elig-result-title');
+    const text = document.getElementById('elig-result-text');
+    if (eligible) {
+      icon.textContent = '✓';
+      icon.style.background = 'var(--green-light)';
+      title.textContent = currentLang === 'fr' ? 'Vous êtes éligible !' : 'You may qualify!';
+      text.textContent = currentLang === 'fr' ? 'Selon vos réponses, vous semblez éligible à un prêt Avenir. Faites votre demande dès maintenant.' : 'Based on your answers, you appear to be eligible for an Avenir loan. Apply now to get started.';
+    } else {
+      icon.textContent = '✗';
+      icon.style.background = '#fef2f2';
+      icon.style.color = '#dc2626';
+      title.textContent = currentLang === 'fr' ? 'Pas encore éligible' : 'Not yet eligible';
+      text.textContent = currentLang === 'fr' ? "Malheureusement vous ne remplissez pas encore tous les critères. Contactez-nous pour en savoir plus." : 'Unfortunately you don\'t meet all criteria yet. Contact us to learn more.';
+      result.querySelector('button') && (result.querySelector('button').style.display = 'none');
+    }
+  }
+</script>
+<div id="tweaks-root"></div>
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Products — Avenir Microfinance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark: #0f2d1f; --dark-mid: #1a4530; --green: #5ab92c; --green-dark: #3d8a18;
+      --green-light: #eef7e8; --green-tint: #f4faf0; --off-white: #f8faf7;
+      --text: #111a14; --text-mid: #3a4d3e; --text-muted: #6b7f6e; --border: #ddebd5;
+      --white: #ffffff; --radius: 16px; --radius-lg: 28px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 0 56px; display: flex; align-items: center; justify-content: space-between; height: 76px; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 15px; font-weight: 500; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-links a.active { color: var(--dark); font-weight: 700; }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .lang-toggle { display: flex; background: var(--green-light); border-radius: 8px; padding: 3px; gap: 2px; }
+    .lang-btn { padding: 6px 14px; border: none; background: none; border-radius: 6px; font-size: 13px; font-weight: 600; font-family: inherit; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+    .lang-btn.active { background: var(--dark); color: var(--white); }
+    .btn-primary { display: inline-flex; align-items: center; padding: 12px 26px; background: var(--green); color: var(--white); font-family: inherit; font-size: 15px; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    /* HERO */
+    .page-hero { background: var(--dark); padding: 72px 56px 80px; position: relative; overflow: hidden; }
+    .page-hero::after { content: ''; position: absolute; top: -120px; right: -120px; width: 520px; height: 520px; background: radial-gradient(ellipse, rgba(90,185,44,0.18) 0%, transparent 62%); border-radius: 50%; }
+    .page-hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: 28px; }
+    .breadcrumb a { color: rgba(255,255,255,0.35); text-decoration: none; } .breadcrumb a:hover { color: rgba(255,255,255,0.7); }
+    .breadcrumb span { color: rgba(255,255,255,0.2); }
+    .page-hero h1 { font-size: clamp(40px, 5vw, 68px); font-weight: 800; letter-spacing: -2.5px; color: white; line-height: 1.02; margin-bottom: 20px; max-width: 760px; }
+    .page-hero h1 .accent { color: var(--green); }
+    .page-hero p { font-size: 18px; color: rgba(255,255,255,0.55); max-width: 540px; line-height: 1.65; }
+    .hero-meta { display: flex; gap: 48px; margin-top: 44px; flex-wrap: wrap; }
+    .hero-meta-item { }
+    .hero-meta-value { font-size: 32px; font-weight: 800; color: white; letter-spacing: -1.5px; }
+    .hero-meta-value span { color: var(--green); }
+    .hero-meta-label { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 500; margin-top: 4px; }
+
+    /* PRODUCTS */
+    .products { padding: 80px 56px; background: var(--off-white); }
+    .products-inner { max-width: 1280px; margin: 0 auto; }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green-dark); margin-bottom: 14px; }
+    .products-header { margin-bottom: 48px; max-width: 640px; }
+    .products-header h2 { font-size: clamp(30px, 3vw, 44px); font-weight: 800; letter-spacing: -1.5px; color: var(--dark); line-height: 1.1; margin-bottom: 14px; }
+    .products-header p { font-size: 16px; color: var(--text-muted); line-height: 1.65; }
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .product-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px 32px; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(15,45,31,0.1); }
+    .product-card.featured { background: var(--dark); border-color: var(--dark); }
+    .product-rate { position: absolute; top: 32px; right: 32px; display: flex; flex-direction: column; align-items: flex-end; }
+    .product-rate-value { font-size: 30px; font-weight: 800; color: var(--green); letter-spacing: -1px; line-height: 1; }
+    .product-rate-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; }
+    .product-card.featured .product-rate-label { color: rgba(255,255,255,0.4); }
+    .product-num { font-size: 12px; font-weight: 700; color: var(--green-dark); letter-spacing: 1px; margin-bottom: 16px; }
+    .product-card.featured .product-num { color: var(--green); }
+    .product-card h3 { font-size: 22px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; margin-bottom: 6px; }
+    .product-card.featured h3 { color: white; }
+    .product-target { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .product-card.featured .product-target { color: rgba(255,255,255,0.5); }
+    .product-amount { font-size: 28px; font-weight: 800; color: var(--dark); letter-spacing: -1px; margin-bottom: 4px; }
+    .product-card.featured .product-amount { color: white; }
+    .product-amount-label { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; font-weight: 500; }
+    .product-card.featured .product-amount-label { color: rgba(255,255,255,0.4); }
+    .product-specs { display: flex; flex-direction: column; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); margin-bottom: 24px; }
+    .product-card.featured .product-specs { border-top-color: rgba(255,255,255,0.12); }
+    .product-spec { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-mid); }
+    .product-card.featured .product-spec { color: rgba(255,255,255,0.7); }
+    .product-spec svg { flex-shrink: 0; }
+    .product-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; flex-grow: 1; }
+    .product-card.featured .product-desc { color: rgba(255,255,255,0.5); }
+    .product-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; width: 100%; background: var(--green-light); color: var(--green-dark); font-family: inherit; font-size: 14px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+    .product-btn:hover { background: var(--green); color: white; }
+    .product-card.featured .product-btn { background: var(--green); color: white; }
+    .product-card.featured .product-btn:hover { background: var(--green-dark); }
+
+    /* CALCULATOR */
+    .calc { padding: 80px 56px; background: var(--dark); position: relative; overflow: hidden; }
+    .calc::before { content: ''; position: absolute; bottom: -150px; left: -100px; width: 500px; height: 500px; background: radial-gradient(ellipse, rgba(90,185,44,0.12) 0%, transparent 65%); border-radius: 50%; }
+    .calc-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
+    .calc-intro .eyebrow { color: var(--green); }
+    .calc-intro h2 { font-size: clamp(30px, 3vw, 44px); font-weight: 800; letter-spacing: -1.5px; color: white; line-height: 1.1; margin-bottom: 16px; }
+    .calc-intro p { font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 28px; }
+    .calc-note { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.6; padding: 16px 20px; background: rgba(255,255,255,0.04); border-radius: 12px; border-left: 3px solid var(--green); }
+    .calc-panel { background: var(--white); border-radius: var(--radius-lg); padding: 44px; }
+    .calc-field { margin-bottom: 32px; }
+    .calc-field-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+    .calc-field-label { font-size: 14px; font-weight: 600; color: var(--text-mid); }
+    .calc-field-value { font-size: 28px; font-weight: 800; color: var(--dark); letter-spacing: -1px; }
+    .calc-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 100px; background: var(--green-light); outline: none; }
+    .calc-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 26px; height: 26px; border-radius: 50%; background: var(--green); cursor: pointer; border: 4px solid white; box-shadow: 0 2px 8px rgba(15,45,31,0.25); }
+    .calc-slider::-moz-range-thumb { width: 26px; height: 26px; border-radius: 50%; background: var(--green); cursor: pointer; border: 4px solid white; box-shadow: 0 2px 8px rgba(15,45,31,0.25); }
+    .calc-range-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+    .calc-term-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .calc-term-btn { padding: 12px 4px; border: 2px solid var(--border); background: white; border-radius: 10px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
+    .calc-term-btn.active { border-color: var(--green); background: var(--green-light); color: var(--green-dark); }
+    .calc-results { background: var(--green-tint); border-radius: var(--radius); padding: 28px; margin-top: 8px; }
+    .calc-result-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
+    .calc-result-row:not(:last-child) { border-bottom: 1px solid var(--border); }
+    .calc-result-label { font-size: 14px; color: var(--text-muted); }
+    .calc-result-val { font-size: 16px; font-weight: 700; color: var(--dark); }
+    .calc-result-row.total .calc-result-label { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .calc-result-row.total .calc-result-val { font-size: 24px; font-weight: 800; color: var(--green-dark); letter-spacing: -0.5px; }
+    .calc-tier-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--dark); color: white; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+
+    /* RATES TABLE */
+    .rates { padding: 80px 56px; background: var(--white); }
+    .rates-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .rates-table-wrap h2 { font-size: clamp(28px, 2.6vw, 38px); font-weight: 800; letter-spacing: -1.5px; color: var(--dark); line-height: 1.1; margin-bottom: 24px; }
+    .rates-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .rates-table thead { background: var(--dark); }
+    .rates-table th { text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.7); padding: 16px 24px; }
+    .rates-table th:last-child { text-align: right; }
+    .rates-table td { padding: 16px 24px; font-size: 15px; color: var(--text-mid); border-top: 1px solid var(--border); }
+    .rates-table td:first-child { font-weight: 600; color: var(--dark); }
+    .rates-table td:last-child { text-align: right; font-weight: 800; color: var(--green-dark); font-size: 18px; }
+    .rates-table tbody tr:nth-child(even) { background: var(--green-tint); }
+    .perks { display: flex; flex-direction: column; gap: 16px; }
+    .perks h2 { font-size: clamp(28px, 2.6vw, 38px); font-weight: 800; letter-spacing: -1.5px; color: var(--dark); line-height: 1.1; margin-bottom: 8px; }
+    .perk { display: flex; gap: 18px; padding: 24px; background: var(--green-tint); border: 1px solid var(--border); border-radius: var(--radius); }
+    .perk-icon { width: 48px; height: 48px; flex-shrink: 0; background: var(--white); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(15,45,31,0.07); }
+    .perk h4 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .perk p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .perk strong { color: var(--green-dark); }
+
+    /* CTA */
+    .cta-banner { padding: 72px 56px; background: var(--green); }
+    .cta-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+    .cta-text h2 { font-size: clamp(30px, 3vw, 46px); font-weight: 800; color: white; letter-spacing: -1.5px; margin-bottom: 8px; line-height: 1.1; }
+    .cta-text p { font-size: 17px; color: rgba(255,255,255,0.75); }
+    .cta-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-dark { display: inline-flex; align-items: center; padding: 16px 32px; background: var(--dark); color: white; font-family: inherit; font-size: 16px; font-weight: 700; border: none; border-radius: 14px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+    .btn-dark:hover { background: #0a1f14; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer { background: var(--dark); padding: 56px 56px 32px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 32px; }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.75; margin-top: 20px; max-width: 260px; }
+    .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 11px; }
+    .footer-col ul li a { font-size: 15px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.25); }
+    .footer-legal { display: flex; gap: 28px; }
+    .footer-legal a { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(10,25,15,0.75); backdrop-filter: blur(8px); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--white); border-radius: var(--radius-lg); padding: 52px; width: 100%; max-width: 500px; margin: 20px; position: relative; transform: translateY(24px); transition: transform 0.25s; max-height: 90vh; overflow-y: auto; }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-close { position: absolute; top: 22px; right: 22px; width: 38px; height: 38px; border: none; background: var(--green-light); border-radius: 10px; cursor: pointer; font-size: 18px; color: var(--dark); display: flex; align-items: center; justify-content: center; }
+    .modal h2 { font-size: 28px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; margin-bottom: 8px; }
+    .modal > p { font-size: 15px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.5; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
+    .form-group input, .form-group select { width: 100%; padding: 13px 16px; border: 2px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 15px; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--green); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .modal .btn-primary { width: 100%; justify-content: center; padding: 14px; font-size: 15px; border-radius: 12px; margin-top: 8px; }
+    .modal-success { text-align: center; padding: 20px 0; }
+    .modal-success .success-icon { width: 68px; height: 68px; background: var(--green-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; font-size: 30px; }
+    .modal-success h3 { font-size: 24px; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+    .modal-success p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .calc-inner, .rates-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; } .nav-links { display: none; }
+      .page-hero { padding: 56px 24px 60px; }
+      .products, .calc, .rates, .cta-banner, footer { padding: 60px 24px; }
+      .product-grid { grid-template-columns: 1fr; }
+      .calc-panel { padding: 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .cta-inner { flex-direction: column; align-items: flex-start; }
+      footer { padding: 48px 24px 28px; }
+    }
+    @media (max-width: 560px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .calc-term-options { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="avenir-logo.png" alt="Avenir Microfinance" style="height:58px;width:auto;" /></a>
+  <ul class="nav-links">
+    <li><a href="loans.html" class="active" data-en="Loans" data-fr="Prêts">Loans</a></li>
+    <li><a href="index.html#how" data-en="How It Works" data-fr="Comment ça marche">How It Works</a></li>
+    <li><a href="about.html" data-en="About Us" data-fr="À propos">About Us</a></li>
+    <li><a href="legal.html" data-en="Legal" data-fr="Mentions légales">Legal</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('fr')">FR</button>
+    </div>
+    <button class="btn-primary" onclick="openModal('apply')" data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html" data-en="Home" data-fr="Accueil">Home</a><span>›</span>
+      <span data-en="Loans" data-fr="Prêts">Loans</span>
+    </div>
+    <h1><span data-en-html="Credit that scales <span class='accent'>with you.</span>" data-fr-html="Un crédit qui grandit <span class='accent'>avec vous.</span>">Credit that scales <span class="accent">with you.</span></span></h1>
+    <p data-en="Five loan tiers from $100 to $5,000 — the more you grow with us, the lower your rate. No collateral, fully digital, approved in 24–48 hours." data-fr="Cinq niveaux de prêt de 100 à 5 000 USD — plus vous grandissez avec nous, plus votre taux baisse. Sans garantie, entièrement numérique, approuvé en 24 à 48 heures.">Five loan tiers from $100 to $5,000 — the more you grow with us, the lower your rate. No collateral, fully digital, approved in 24–48 hours.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-value">$100<span>–</span>$5K</div>
+        <div class="hero-meta-label" data-en="Loan range" data-fr="Plage de prêt">Loan range</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-value">28<span>–</span>33%</div>
+        <div class="hero-meta-label" data-en="Interest rate" data-fr="Taux d'intérêt">Interest rate</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-value">24<span>–</span>48h</div>
+        <div class="hero-meta-label" data-en="Processing time" data-fr="Délai de traitement">Processing time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <div class="products-inner">
+    <div class="products-header">
+      <div class="eyebrow" data-en="Our Loan Products" data-fr="Nos Produits de Prêt">Our Loan Products</div>
+      <h2 data-en="Find the loan that fits your stage" data-fr="Trouvez le prêt adapté à votre étape">Find the loan that fits your stage</h2>
+      <p data-en="From your first micro-loan to a major capital injection — every tier is designed for where your business is today." data-fr="De votre premier micro-prêt à une injection de capital majeure — chaque niveau est conçu pour l'étape actuelle de votre entreprise.">From your first micro-loan to a major capital injection — every tier is designed for where your business is today.</p>
+    </div>
+    <div class="product-grid">
+
+      <!-- 1 -->
+      <div class="product-card">
+        <div class="product-rate"><div class="product-rate-value">33%</div><div class="product-rate-label" data-en="Interest" data-fr="Intérêt">Interest</div></div>
+        <div class="product-num">01</div>
+        <h3 data-en="Starter Boost" data-fr="Démarrage">Starter Boost</h3>
+        <div class="product-target" data-en="First-time borrowers &amp; micro-traders" data-fr="Premiers emprunteurs &amp; micro-commerçants">First-time borrowers &amp; micro-traders</div>
+        <div class="product-amount">$100 – $300</div>
+        <div class="product-amount-label" data-en="Loan amount" data-fr="Montant du prêt">Loan amount</div>
+        <div class="product-specs">
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span data-en="1–3 months tenure" data-fr="Durée 1–3 mois">1–3 months tenure</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span data-en="Monthly or bullet payment" data-fr="Mensuel ou paiement unique">Monthly or bullet payment</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-en="24–48h processing" data-fr="Traitement 24–48h">24–48h processing</span></div>
+        </div>
+        <div class="product-desc" data-en="Best suited for small trading inventory or emergency needs." data-fr="Idéal pour un petit stock commercial ou des besoins urgents.">Best suited for small trading inventory or emergency needs.</div>
+        <button class="product-btn" onclick="openModal('apply')" data-en="Apply Now" data-fr="Demander">Apply Now</button>
+      </div>
+
+      <!-- 2 -->
+      <div class="product-card">
+        <div class="product-rate"><div class="product-rate-value">32%</div><div class="product-rate-label" data-en="Interest" data-fr="Intérêt">Interest</div></div>
+        <div class="product-num">02</div>
+        <h3 data-en="Growth Micro" data-fr="Micro Croissance">Growth Micro</h3>
+        <div class="product-target" data-en="Informal workers &amp; small vendors" data-fr="Travailleurs informels &amp; petits vendeurs">Informal workers &amp; small vendors</div>
+        <div class="product-amount">$301 – $700</div>
+        <div class="product-amount-label" data-en="Loan amount" data-fr="Montant du prêt">Loan amount</div>
+        <div class="product-specs">
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span data-en="3–6 months tenure" data-fr="Durée 3–6 mois">3–6 months tenure</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span data-en="Monthly installments" data-fr="Mensualités">Monthly installments</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-en="24–48h processing" data-fr="Traitement 24–48h">24–48h processing</span></div>
+        </div>
+        <div class="product-desc" data-en="Ideal for working capital rotation and growing your stock." data-fr="Idéal pour la rotation du fonds de roulement et l'augmentation de votre stock.">Ideal for working capital rotation and growing your stock.</div>
+        <button class="product-btn" onclick="openModal('apply')" data-en="Apply Now" data-fr="Demander">Apply Now</button>
+      </div>
+
+      <!-- 3 -->
+      <div class="product-card">
+        <div class="product-rate"><div class="product-rate-value">31%</div><div class="product-rate-label" data-en="Interest" data-fr="Intérêt">Interest</div></div>
+        <div class="product-num">03</div>
+        <h3 data-en="Business Support" data-fr="Appui aux Entreprises">Business Support</h3>
+        <div class="product-target" data-en="Micro &amp; small businesses" data-fr="Micro &amp; petites entreprises">Micro &amp; small businesses</div>
+        <div class="product-amount">$701 – $1,500</div>
+        <div class="product-amount-label" data-en="Loan amount" data-fr="Montant du prêt">Loan amount</div>
+        <div class="product-specs">
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span data-en="6–12 months tenure" data-fr="Durée 6–12 mois">6–12 months tenure</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span data-en="Monthly installments" data-fr="Mensualités">Monthly installments</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Inventory &amp; equipment" data-fr="Stock &amp; équipement">Inventory &amp; equipment</span></div>
+        </div>
+        <div class="product-desc" data-en="Suitable for inventory expansion or equipment purchase." data-fr="Convient à l'expansion des stocks ou à l'achat d'équipement.">Suitable for inventory expansion or equipment purchase.</div>
+        <button class="product-btn" onclick="openModal('apply')" data-en="Apply Now" data-fr="Demander">Apply Now</button>
+      </div>
+
+      <!-- 4 -->
+      <div class="product-card">
+        <div class="product-rate"><div class="product-rate-value">30%</div><div class="product-rate-label" data-en="Interest" data-fr="Intérêt">Interest</div></div>
+        <div class="product-num">04</div>
+        <h3 data-en="SME Expansion" data-fr="Expansion PME">SME Expansion</h3>
+        <div class="product-target" data-en="Established SMEs" data-fr="PME établies">Established SMEs</div>
+        <div class="product-amount">$1,501 – $3,000</div>
+        <div class="product-amount-label" data-en="Loan amount" data-fr="Montant du prêt">Loan amount</div>
+        <div class="product-specs">
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span data-en="6–12 months tenure" data-fr="Durée 6–12 mois">6–12 months tenure</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span data-en="Monthly installments" data-fr="Mensualités">Monthly installments</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Scale operations" data-fr="Développer les opérations">Scale operations</span></div>
+        </div>
+        <div class="product-desc" data-en="Designed for scaling operations or larger stock purchases." data-fr="Conçu pour développer les opérations ou les achats de stock plus importants.">Designed for scaling operations or larger stock purchases.</div>
+        <button class="product-btn" onclick="openModal('apply')" data-en="Apply Now" data-fr="Demander">Apply Now</button>
+      </div>
+
+      <!-- 5 featured -->
+      <div class="product-card featured">
+        <div class="product-rate"><div class="product-rate-value">28%</div><div class="product-rate-label" data-en="Interest" data-fr="Intérêt">Interest</div></div>
+        <div class="product-num" data-en="05 · BEST RATE" data-fr="05 · MEILLEUR TAUX">05 · BEST RATE</div>
+        <h3 data-en="Premium Enterprise" data-fr="Entreprise Premium">Premium Enterprise</h3>
+        <div class="product-target" data-en="High-performing repeat clients" data-fr="Clients fidèles performants">High-performing repeat clients</div>
+        <div class="product-amount">$3,001 – $5,000</div>
+        <div class="product-amount-label" data-en="Loan amount" data-fr="Montant du prêt">Loan amount</div>
+        <div class="product-specs">
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span data-en="12–24 months tenure" data-fr="Durée 12–24 mois">12–24 months tenure</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span data-en="Monthly installments" data-fr="Mensualités">Monthly installments</span></div>
+          <div class="product-spec"><svg width="16" height="16" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Largest capital injection" data-fr="Plus grande injection de capital">Largest capital injection</span></div>
+        </div>
+        <div class="product-desc" data-en="For mature businesses requiring larger capital injections to reach the next level." data-fr="Pour les entreprises matures nécessitant des injections de capital plus importantes pour passer au niveau supérieur.">For mature businesses requiring larger capital injections to reach the next level.</div>
+        <button class="product-btn" onclick="openModal('apply')" data-en="Apply Now" data-fr="Demander">Apply Now</button>
+      </div>
+
+      <!-- Eligibility callout card -->
+      <div class="product-card" style="background:var(--green-light);border-color:var(--green-light);justify-content:center;align-items:flex-start;">
+        <div style="width:52px;height:52px;background:white;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 12px rgba(15,45,31,0.08);">
+          <svg width="26" height="26" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3 style="font-size:20px;" data-en="Not sure which fits?" data-fr="Vous hésitez ?">Not sure which fits?</h3>
+        <p class="product-desc" style="color:var(--text-mid);" data-en="Answer 3 quick questions and we'll point you to the right loan tier for your business." data-fr="Répondez à 3 questions rapides et nous vous orienterons vers le bon niveau de prêt.">Answer 3 quick questions and we'll point you to the right loan tier for your business.</p>
+        <button class="product-btn" style="background:var(--dark);color:white;" onclick="openModal('eligibility')" data-en="Check Eligibility" data-fr="Vérifier l'éligibilité">Check Eligibility</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc">
+  <div class="calc-inner">
+    <div class="calc-intro">
+      <div class="eyebrow" data-en="Loan Calculator" data-fr="Calculateur de Prêt">Loan Calculator</div>
+      <h2 data-en="Estimate your repayment in seconds" data-fr="Estimez votre remboursement en quelques secondes">Estimate your repayment in seconds</h2>
+      <p data-en="Slide to your desired amount and term. We'll match you to the right tier and show your estimated interest, processing fee and total repayment." data-fr="Faites glisser jusqu'au montant et à la durée souhaités. Nous vous associerons au bon niveau et afficherons votre intérêt estimé, les frais de traitement et le remboursement total.">Slide to your desired amount and term. We'll match you to the right tier and show your estimated interest, processing fee and total repayment.</p>
+      <div class="calc-note" data-en="This is an indicative estimate only. Interest is calculated on a flat-rate basis. Your final rate and terms are confirmed at approval, after credit assessment. A 1% processing fee applies." data-fr="Ceci est une estimation indicative uniquement. Les intérêts sont calculés sur une base de taux fixe. Votre taux et vos conditions définitifs sont confirmés à l'approbation, après évaluation du crédit. Des frais de traitement de 1% s'appliquent.">This is an indicative estimate only. Interest is calculated on a flat-rate basis. Your final rate and terms are confirmed at approval, after credit assessment. A 1% processing fee applies.</div>
+    </div>
+    <div class="calc-panel">
+      <div class="calc-field">
+        <div class="calc-field-top">
+          <span class="calc-field-label" data-en="Loan amount" data-fr="Montant du prêt">Loan amount</span>
+          <span class="calc-field-value" id="calc-amount-display">$1,000</span>
+        </div>
+        <input type="range" class="calc-slider" id="calc-amount" min="100" max="5000" step="50" value="1000" />
+        <div class="calc-range-labels"><span>$100</span><span>$5,000</span></div>
+      </div>
+      <div class="calc-field">
+        <div class="calc-field-top">
+          <span class="calc-field-label" data-en="Repayment term" data-fr="Durée de remboursement">Repayment term</span>
+          <span class="calc-field-value" id="calc-term-display">6 mo</span>
+        </div>
+        <div class="calc-term-options" id="calc-terms">
+          <button class="calc-term-btn" data-term="3">3 mo</button>
+          <button class="calc-term-btn active" data-term="6">6 mo</button>
+          <button class="calc-term-btn" data-term="12">12 mo</button>
+          <button class="calc-term-btn" data-term="24">24 mo</button>
+        </div>
+      </div>
+      <div class="calc-results">
+        <div class="calc-result-row">
+          <span class="calc-result-label" data-en="Matched tier" data-fr="Niveau correspondant">Matched tier</span>
+          <span class="calc-tier-badge" id="calc-tier">Business Support</span>
+        </div>
+        <div class="calc-result-row">
+          <span class="calc-result-label" data-en="Interest rate" data-fr="Taux d'intérêt">Interest rate</span>
+          <span class="calc-result-val" id="calc-rate">31%</span>
+        </div>
+        <div class="calc-result-row">
+          <span class="calc-result-label" data-en="Est. interest" data-fr="Intérêt est.">Est. interest</span>
+          <span class="calc-result-val" id="calc-interest">$155</span>
+        </div>
+        <div class="calc-result-row">
+          <span class="calc-result-label" data-en="Processing fee (1%)" data-fr="Frais de traitement (1%)">Processing fee (1%)</span>
+          <span class="calc-result-val" id="calc-fee">$10</span>
+        </div>
+        <div class="calc-result-row">
+          <span class="calc-result-label" data-en="Est. monthly payment" data-fr="Paiement mensuel est.">Est. monthly payment</span>
+          <span class="calc-result-val" id="calc-monthly">$194</span>
+        </div>
+        <div class="calc-result-row total">
+          <span class="calc-result-label" data-en="Total repayment" data-fr="Remboursement total">Total repayment</span>
+          <span class="calc-result-val" id="calc-total">$1,165</span>
+        </div>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;padding:15px;margin-top:20px;font-size:16px;" onclick="openModal('apply')" data-en="Apply for this loan" data-fr="Demander ce prêt">Apply for this loan</button>
+    </div>
+  </div>
+</section>
+
+<!-- RATES + PERKS -->
+<section class="rates">
+  <div class="rates-inner">
+    <div class="rates-table-wrap">
+      <div class="eyebrow" data-en="Interest Structure" data-fr="Structure des Taux">Interest Structure</div>
+      <h2 data-en="Tiered pricing — grow to save" data-fr="Tarification par paliers — grandir pour économiser">Tiered pricing — grow to save</h2>
+      <table class="rates-table">
+        <thead>
+          <tr>
+            <th data-en="Loan Range (USD)" data-fr="Plage (USD)">Loan Range (USD)</th>
+            <th data-en="Interest Rate" data-fr="Taux">Interest Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>$100 – $300</td><td>33%</td></tr>
+          <tr><td>$301 – $700</td><td>32%</td></tr>
+          <tr><td>$701 – $1,500</td><td>31%</td></tr>
+          <tr><td>$1,501 – $3,000</td><td>30%</td></tr>
+          <tr><td>$3,001 – $5,000</td><td>28%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="perks">
+      <div class="eyebrow" data-en="Rewards &amp; Terms" data-fr="Récompenses &amp; Conditions">Rewards &amp; Terms</div>
+      <h2 data-en="Lower rates for loyal borrowers" data-fr="Des taux plus bas pour les emprunteurs fidèles">Lower rates for loyal borrowers</h2>
+      <div class="perk">
+        <div class="perk-icon"><svg width="22" height="22" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><h4 data-en="Loyalty Rate Reduction" data-fr="Réduction de fidélité">Loyalty Rate Reduction</h4><p data-en="Enjoy a <strong>2% rate decrease</strong> after 2 successful repayments. The more you borrow and repay, the cheaper your credit becomes." data-fr="Bénéficiez d'une <strong>réduction de 2%</strong> après 2 remboursements réussis. Plus vous empruntez et remboursez, moins votre crédit coûte cher.">Enjoy a <strong>2% rate decrease</strong> after 2 successful repayments. The more you borrow and repay, the cheaper your credit becomes.</p></div>
+      </div>
+      <div class="perk">
+        <div class="perk-icon"><svg width="22" height="22" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div><h4 data-en="Early Repayment Discount" data-fr="Remise pour remboursement anticipé">Early Repayment Discount</h4><p data-en="Settle your loan in full early and receive a <strong>5% discount</strong> on the cost of credit. Reward yourself for finishing ahead of schedule." data-fr="Remboursez intégralement votre prêt en avance et recevez une <strong>remise de 5%</strong> sur le coût du crédit. Récompensez-vous pour avoir terminé en avance.">Settle your loan in full early and receive a <strong>5% discount</strong> on the cost of credit. Reward yourself for finishing ahead of schedule.</p></div>
+      </div>
+      <div class="perk">
+        <div class="perk-icon"><svg width="22" height="22" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+        <div><h4 data-en="Transparent Fees" data-fr="Frais transparents">Transparent Fees</h4><p data-en="A flat <strong>1% processing fee</strong> on the loan amount. Late payments incur <strong>0.5% per day</strong>. No hidden charges — ever." data-fr="Des frais de traitement fixes de <strong>1%</strong> sur le montant du prêt. Les retards de paiement entraînent <strong>0,5% par jour</strong>. Aucun frais caché — jamais.">A flat <strong>1% processing fee</strong> on the loan amount. Late payments incur <strong>0.5% per day</strong>. No hidden charges — ever.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2 data-en="Your next loan is minutes away" data-fr="Votre prochain prêt est à quelques minutes">Your next loan is minutes away</h2>
+      <p data-en="Apply now and get a decision within 48 hours." data-fr="Faites votre demande maintenant et obtenez une décision sous 48 heures.">Apply now and get a decision within 48 hours.</p>
+    </div>
+    <div class="cta-buttons">
+      <button class="btn-dark" onclick="openModal('apply')" data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><span style="display:inline-block;background:white;border-radius:10px;padding:6px 14px;"><img src="avenir-logo.png" alt="Avenir Microfinance" style="height:36px;width:auto;display:block;" /></span></a>
+        <p data-en="Digital credit and financial solutions built for underserved communities, SMEs and informal businesses across the DRC." data-fr="Des solutions financières numériques conçues pour les communautés mal desservies, les PME et les entreprises informelles en RDC.">Digital credit and financial solutions built for underserved communities, SMEs and informal businesses across the DRC.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Company" data-fr="Entreprise">Company</h4>
+        <ul>
+          <li><a href="about.html" data-en="About Us" data-fr="À propos">About Us</a></li>
+          <li><a href="loans.html" data-en="Loan Products" data-fr="Produits de prêt">Loan Products</a></li>
+          <li><a href="index.html#how" data-en="How It Works" data-fr="Comment ça marche">How It Works</a></li>
+          <li><a href="#" data-en="Careers" data-fr="Carrières">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Legal" data-fr="Mentions légales">Legal</h4>
+        <ul>
+          <li><a href="legal.html#privacy" data-en="Privacy Policy" data-fr="Confidentialité">Privacy Policy</a></li>
+          <li><a href="legal.html#terms" data-en="Terms &amp; Conditions" data-fr="Conditions">Terms &amp; Conditions</a></li>
+          <li><a href="legal.html#disclosures" data-en="Loan Disclosures" data-fr="Divulgations">Loan Disclosures</a></li>
+          <li><a href="legal.html#responsible" data-en="Responsible Lending" data-fr="Prêt responsable">Responsible Lending</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Contact" data-fr="Contact">Contact</h4>
+        <ul>
+          <li><a href="mailto:customersupport@avenirmfb.com">customersupport@avenirmfb.com</a></li>
+          <li><a href="#" data-en="Gombe, Kinshasa, DRC" data-fr="Gombe, Kinshasa, RDC">Gombe, Kinshasa, DRC</a></li>
+          <li><a href="legal.html#security" data-en="Security" data-fr="Sécurité">Security</a></li>
+          <li><a href="legal.html#aml" data-en="AML / CTF Policy" data-fr="Politique LBC/FT">AML / CTF Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy"><span data-en="© 2026 Avenir MFB S.A.R.L. All rights reserved." data-fr="© 2026 Avenir MFB S.A.R.L. Tous droits réservés.">© 2026 Avenir MFB S.A.R.L. All rights reserved.</span></div>
+      <div class="footer-legal">
+        <a href="legal.html#privacy" data-en="Privacy" data-fr="Confidentialité">Privacy</a>
+        <a href="legal.html#terms" data-en="Terms" data-fr="Conditions">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- APPLY MODAL -->
+<div class="modal-overlay" id="modal-apply" onclick="handleOverlayClick(event,'modal-apply')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-apply')">✕</button>
+    <div id="apply-form-content">
+      <h2 data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</h2>
+      <p data-en="Fill in your details and we'll get back to you within 48 hours." data-fr="Remplissez vos coordonnées et nous vous répondrons sous 48 heures.">Fill in your details and we'll get back to you within 48 hours.</p>
+      <div class="form-row">
+        <div class="form-group"><label data-en="First Name" data-fr="Prénom">First Name</label><input type="text" placeholder="Marie" /></div>
+        <div class="form-group"><label data-en="Last Name" data-fr="Nom">Last Name</label><input type="text" placeholder="Lukeba" /></div>
+      </div>
+      <div class="form-group"><label data-en="Phone Number" data-fr="Numéro de téléphone">Phone Number</label><input type="tel" placeholder="+243 81 234 5678" /></div>
+      <div class="form-group"><label data-en="Loan Product" data-fr="Produit de prêt">Loan Product</label>
+        <select>
+          <option data-en="Starter Boost ($100–300)" data-fr="Démarrage (100–300 $)">Starter Boost ($100–300)</option>
+          <option data-en="Growth Micro ($301–700)" data-fr="Micro Croissance (301–700 $)">Growth Micro ($301–700)</option>
+          <option data-en="Business Support ($701–1,500)" data-fr="Appui aux Entreprises (701–1 500 $)">Business Support ($701–1,500)</option>
+          <option data-en="SME Expansion ($1,501–3,000)" data-fr="Expansion PME (1 501–3 000 $)">SME Expansion ($1,501–3,000)</option>
+          <option data-en="Premium Enterprise ($3,001–5,000)" data-fr="Entreprise Premium (3 001–5 000 $)">Premium Enterprise ($3,001–5,000)</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="submitApply()"><span data-en="Submit Application" data-fr="Soumettre la demande">Submit Application</span></button>
+    </div>
+    <div id="apply-success" class="modal-success" style="display:none;">
+      <div class="success-icon">✓</div>
+      <h3 data-en="Application Received!" data-fr="Demande reçue !">Application Received!</h3>
+      <p data-en="Thank you! We'll review your application and contact you within 48 hours." data-fr="Merci ! Nous examinerons votre dossier et vous contacterons sous 48 heures.">Thank you! We'll review your application and contact you within 48 hours.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ELIGIBILITY MODAL -->
+<div class="modal-overlay" id="modal-eligibility" onclick="handleOverlayClick(event,'modal-eligibility')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-eligibility')">✕</button>
+    <div id="eligibility-form-content">
+      <h2 data-en="Check Your Eligibility" data-fr="Vérifier votre éligibilité">Check Your Eligibility</h2>
+      <p data-en="Answer a few quick questions to see if you qualify." data-fr="Répondez à quelques questions rapides pour voir si vous êtes éligible.">Answer a few quick questions to see if you qualify.</p>
+      <div class="form-group"><label data-en="Are you 18 or older?" data-fr="Avez-vous 18 ans ou plus ?">Are you 18 or older?</label><select id="elig-age"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+      <div class="form-group"><label data-en="DRC phone number?" data-fr="Numéro de téléphone RDC ?">DRC phone number?</label><select id="elig-phone"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+      <div class="form-group"><label data-en="Source of income or business?" data-fr="Source de revenus ou activité ?">Source of income or business?</label><select id="elig-income"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+      <button class="btn-primary" onclick="checkEligibility()"><span data-en="Check Now" data-fr="Vérifier maintenant">Check Now</span></button>
+    </div>
+    <div id="eligibility-result" style="display:none;" class="modal-success">
+      <div class="success-icon" id="elig-icon">✓</div>
+      <h3 id="elig-result-title">You may qualify!</h3>
+      <p id="elig-result-text">You appear to be eligible for an Avenir loan.</p>
+      <button class="btn-primary" style="margin-top:20px;width:100%;justify-content:center;" onclick="closeModal('modal-eligibility');openModal('apply')"><span data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'en';
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.textContent === lang.toUpperCase()));
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-en]').forEach(el => { if (el.tagName !== 'OPTION') el.innerHTML = lang === 'fr' ? el.dataset.fr : el.dataset.en; });
+    document.querySelectorAll('[data-en-html]').forEach(el => { el.innerHTML = lang === 'fr' ? el.dataset.frHtml : el.dataset.enHtml; });
+    document.querySelectorAll('select option[data-en]').forEach(opt => { opt.textContent = lang === 'fr' ? opt.dataset.fr : opt.dataset.en; });
+    updateCalc();
+  }
+
+  function openModal(which) {
+    if (which === 'apply') { document.getElementById('apply-form-content').style.display = ''; document.getElementById('apply-success').style.display = 'none'; }
+    if (which === 'eligibility') { document.getElementById('eligibility-form-content').style.display = ''; document.getElementById('eligibility-result').style.display = 'none'; }
+    document.getElementById('modal-' + which).classList.add('open');
+  }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  function handleOverlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open')); });
+  function submitApply() { document.getElementById('apply-form-content').style.display = 'none'; document.getElementById('apply-success').style.display = 'block'; }
+  function checkEligibility() {
+    const age = document.getElementById('elig-age').value, phone = document.getElementById('elig-phone').value, income = document.getElementById('elig-income').value;
+    if (!age || !phone || !income) { alert('Please answer all questions.'); return; }
+    const eligible = age === 'yes' && phone === 'yes' && income === 'yes';
+    document.getElementById('eligibility-form-content').style.display = 'none';
+    document.getElementById('eligibility-result').style.display = 'block';
+    const icon = document.getElementById('elig-icon');
+    if (eligible) { icon.textContent = '✓'; icon.style.background = 'var(--green-light)'; document.getElementById('elig-result-title').textContent = 'You may qualify!'; document.getElementById('elig-result-text').textContent = 'Based on your answers, you appear to be eligible for an Avenir loan.'; }
+    else { icon.textContent = '✗'; icon.style.background = '#fef2f2'; icon.style.color = '#dc2626'; document.getElementById('elig-result-title').textContent = 'Not yet eligible'; document.getElementById('elig-result-text').textContent = "You don't meet all criteria yet. Contact us to learn more."; const btn = document.querySelector('#eligibility-result button'); if (btn) btn.style.display = 'none'; }
+  }
+
+  // ─── CALCULATOR ───
+  const TIERS = [
+    { max: 300, rate: 0.33, en: 'Starter Boost', fr: 'Démarrage' },
+    { max: 700, rate: 0.32, en: 'Growth Micro', fr: 'Micro Croissance' },
+    { max: 1500, rate: 0.31, en: 'Business Support', fr: 'Appui aux Entreprises' },
+    { max: 3000, rate: 0.30, en: 'SME Expansion', fr: 'Expansion PME' },
+    { max: 5000, rate: 0.28, en: 'Premium Enterprise', fr: 'Entreprise Premium' }
+  ];
+  let selectedTerm = 6;
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+  function updateCalc() {
+    const amount = parseInt(document.getElementById('calc-amount').value, 10);
+    const tier = TIERS.find(t => amount <= t.max) || TIERS[TIERS.length - 1];
+    const rate = tier.rate;
+    // Flat-rate interest over the term (term in months, rate is annual)
+    const interest = amount * rate * (selectedTerm / 12);
+    const fee = amount * 0.01;
+    const total = amount + interest + fee;
+    const monthly = total / selectedTerm;
+
+    document.getElementById('calc-amount-display').textContent = fmt(amount);
+    document.getElementById('calc-term-display').textContent = selectedTerm + ' mo';
+    document.getElementById('calc-tier').textContent = currentLang === 'fr' ? tier.fr : tier.en;
+    document.getElementById('calc-rate').textContent = Math.round(rate * 100) + '%';
+    document.getElementById('calc-interest').textContent = fmt(interest);
+    document.getElementById('calc-fee').textContent = fmt(fee);
+    document.getElementById('calc-monthly').textContent = fmt(monthly);
+    document.getElementById('calc-total').textContent = fmt(total);
+
+    // Slider fill
+    const slider = document.getElementById('calc-amount');
+    const pct = ((amount - slider.min) / (slider.max - slider.min)) * 100;
+    slider.style.background = `linear-gradient(to right, var(--green) 0%, var(--green) ${pct}%, var(--green-light) ${pct}%, var(--green-light) 100%)`;
+  }
+
+  document.getElementById('calc-amount').addEventListener('input', updateCalc);
+  document.querySelectorAll('.calc-term-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.calc-term-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedTerm = parseInt(btn.dataset.term, 10);
+      updateCalc();
+    });
+  });
+  updateCalc();
+</script>
+</body>
+</html>
