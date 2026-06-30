@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Avenir Microfinance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark: #0f2d1f;
+      --dark-mid: #1a4530;
+      --green: #5ab92c;
+      --green-dark: #3d8a18;
+      --green-light: #eef7e8;
+      --green-tint: #f4faf0;
+      --off-white: #f8faf7;
+      --text: #111a14;
+      --text-mid: #3a4d3e;
+      --text-muted: #6b7f6e;
+      --border: #ddebd5;
+      --white: #ffffff;
+      --radius: 16px;
+      --radius-lg: 28px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 76px;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 15px; font-weight: 500; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-links a.active { color: var(--dark); font-weight: 700; }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .lang-toggle { display: flex; background: var(--green-light); border-radius: 8px; padding: 3px; gap: 2px; }
+    .lang-btn { padding: 6px 14px; border: none; background: none; border-radius: 6px; font-size: 13px; font-weight: 600; font-family: inherit; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+    .lang-btn.active { background: var(--dark); color: var(--white); }
+    .btn-primary { display: inline-flex; align-items: center; padding: 12px 26px; background: var(--green); color: var(--white); font-family: inherit; font-size: 15px; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .page-hero {
+      background: var(--dark);
+      padding: 120px 56px 0;
+      position: relative; overflow: hidden;
+      min-height: 560px;
+      display: flex; align-items: flex-end;
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(90,185,44,0.2) 0%, transparent 55%),
+                  radial-gradient(ellipse at 20% 80%, rgba(90,185,44,0.08) 0%, transparent 45%);
+    }
+    .page-hero-inner {
+      max-width: 1280px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: flex-end; gap: 80px;
+      position: relative; z-index: 1;
+    }
+    .hero-left { padding-bottom: 80px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: 32px; }
+    .breadcrumb a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.7); }
+    .breadcrumb span { color: rgba(255,255,255,0.2); }
+    .page-hero h1 {
+      font-size: clamp(48px, 5.5vw, 80px);
+      font-weight: 800; letter-spacing: -3px;
+      color: white; line-height: 1.0;
+      margin-bottom: 28px;
+    }
+    .page-hero h1 .accent { color: var(--green); }
+    .page-hero p { font-size: 19px; color: rgba(255,255,255,0.5); line-height: 1.65; max-width: 460px; }
+    .hero-right {
+      align-self: stretch;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .hero-stat-strip {
+      display: flex; flex-direction: column;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-bottom: none;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .hero-stat-item {
+      padding: 36px 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .hero-stat-item:last-child { border-bottom: none; }
+    .hero-stat-value { font-size: 52px; font-weight: 800; color: white; letter-spacing: -2px; line-height: 1; }
+    .hero-stat-value span { color: var(--green); }
+    .hero-stat-label { font-size: 15px; color: rgba(255,255,255,0.45); font-weight: 500; max-width: 160px; text-align: right; line-height: 1.4; }
+
+    /* ─── MISSION ─── */
+    .mission { padding: 120px 56px; background: var(--white); }
+    .mission-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 5fr 4fr; gap: 100px; align-items: center; }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green-dark); margin-bottom: 20px; }
+    .mission h2 { font-size: clamp(36px, 3.5vw, 52px); font-weight: 800; letter-spacing: -2px; color: var(--dark); line-height: 1.1; margin-bottom: 28px; }
+    .mission p { font-size: 17px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
+    .mission p:last-child { margin-bottom: 0; }
+    .mission-aside {
+      background: var(--dark);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .mission-aside-item {
+      padding: 44px 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: relative;
+    }
+    .mission-aside-item:last-child { border-bottom: none; }
+    .mission-aside-num {
+      font-size: 64px; font-weight: 800; color: white; letter-spacing: -3px; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .mission-aside-num em { color: var(--green); font-style: normal; }
+    .mission-aside-label { font-size: 14px; color: rgba(255,255,255,0.45); font-weight: 500; }
+    .mission-aside-bar {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--green);
+    }
+
+    /* ─── SERVE ─── */
+    .serve { padding: 120px 56px; background: var(--green-tint); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .serve-inner { max-width: 1280px; margin: 0 auto; }
+    .serve-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 60px; margin-bottom: 72px; }
+    .serve-header-left { max-width: 560px; }
+    .serve-header h2 { font-size: clamp(36px, 3.5vw, 52px); font-weight: 800; letter-spacing: -2px; color: var(--dark); line-height: 1.1; margin-bottom: 16px; }
+    .serve-header p { font-size: 17px; color: var(--text-muted); line-height: 1.7; }
+    .serve-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .serve-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .serve-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(15,45,31,0.09); }
+    .serve-card-num { font-size: 64px; font-weight: 800; color: var(--green); opacity: 0.18; letter-spacing: -3px; line-height: 1; margin-bottom: 24px; }
+    .serve-card-icon { width: 56px; height: 56px; background: var(--green-light); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+    .serve-card h3 { font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 14px; letter-spacing: -0.5px; }
+    .serve-card p { font-size: 15px; color: var(--text-muted); line-height: 1.75; }
+
+    /* ─── WHY ─── */
+    .why { padding: 120px 56px; background: var(--dark); position: relative; overflow: hidden; }
+    .why::before { content: ''; position: absolute; top: -150px; right: -150px; width: 700px; height: 700px; background: radial-gradient(ellipse, rgba(90,185,44,0.12) 0%, transparent 60%); border-radius: 50%; }
+    .why-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+    .why-header { margin-bottom: 72px; }
+    .why-header .eyebrow { color: var(--green); }
+    .why-header h2 { font-size: clamp(36px, 3.5vw, 56px); font-weight: 800; letter-spacing: -2px; color: white; line-height: 1.1; max-width: 640px; }
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; background: rgba(255,255,255,0.05); border-radius: var(--radius-lg); overflow: hidden; }
+    .why-card { background: rgba(255,255,255,0.03); padding: 56px 52px; display: flex; gap: 28px; transition: background 0.2s; }
+    .why-card:hover { background: rgba(255,255,255,0.07); }
+    .why-icon { width: 56px; height: 56px; flex-shrink: 0; background: rgba(90,185,44,0.12); border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+    .why-card h3 { font-size: 20px; font-weight: 700; color: white; margin-bottom: 12px; }
+    .why-card p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.75; }
+
+    /* ─── APPROACH ─── */
+    .approach { padding: 120px 56px; background: var(--white); }
+    .approach-inner { max-width: 1280px; margin: 0 auto; }
+    .approach-header { margin-bottom: 72px; display: flex; align-items: flex-end; justify-content: space-between; gap: 60px; }
+    .approach-header h2 { font-size: clamp(36px, 3.5vw, 56px); font-weight: 800; letter-spacing: -2px; color: var(--dark); line-height: 1.1; }
+    .approach-header p { font-size: 17px; color: var(--text-muted); line-height: 1.7; max-width: 420px; flex-shrink: 0; }
+    .approach-strip { display: flex; flex-direction: column; gap: 2px; }
+    .approach-item {
+      display: grid; grid-template-columns: 120px 1fr 1fr;
+      align-items: center; gap: 56px;
+      background: var(--green-tint);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 52px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .approach-item:hover { background: var(--green-light); transform: translateX(6px); }
+    .approach-item-num { font-size: 56px; font-weight: 800; color: var(--green); opacity: 0.35; letter-spacing: -3px; line-height: 1; }
+    .approach-item h3 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+    .approach-item p { font-size: 15px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ─── VISION ─── */
+    .vision { padding: 120px 56px; background: var(--dark); position: relative; overflow: hidden; }
+    .vision::after { content: ''; position: absolute; bottom: -150px; left: -100px; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(90,185,44,0.1) 0%, transparent 65%); border-radius: 50%; }
+    .vision-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+    .vision-top { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; margin-bottom: 80px; }
+    .vision-top .eyebrow { color: var(--green); }
+    .vision-top h2 { font-size: clamp(36px, 3.5vw, 56px); font-weight: 800; letter-spacing: -2px; color: white; line-height: 1.1; margin-bottom: 24px; }
+    .vision-top p { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+    .vision-quote-block {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-left: 5px solid var(--green);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: 48px 56px;
+    }
+    .vision-quote-block blockquote {
+      font-size: clamp(22px, 2.2vw, 30px);
+      font-weight: 700; color: rgba(255,255,255,0.88);
+      line-height: 1.4; letter-spacing: -0.5px; font-style: italic;
+      margin-bottom: 24px;
+    }
+    .vision-quote-block cite { font-size: 13px; color: var(--green); font-style: normal; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+    .vision-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 64px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px;
+    }
+    .vision-pillar h3 { font-size: 18px; font-weight: 700; color: white; margin-bottom: 10px; }
+    .vision-pillar p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.75; }
+    .vision-pillar-icon { width: 44px; height: 44px; background: rgba(90,185,44,0.12); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+
+    /* ─── CTA ─── */
+    .cta-banner { padding: 100px 56px; background: var(--green); }
+    .cta-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+    .cta-text h2 { font-size: clamp(32px, 3.5vw, 52px); font-weight: 800; color: white; letter-spacing: -2px; margin-bottom: 10px; line-height: 1.1; }
+    .cta-text p { font-size: 17px; color: rgba(255,255,255,0.7); }
+    .cta-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-dark { display: inline-flex; align-items: center; padding: 16px 32px; background: var(--dark); color: white; font-family: inherit; font-size: 16px; font-weight: 700; border: none; border-radius: 14px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+    .btn-dark:hover { background: #0a1f14; transform: translateY(-1px); }
+    .btn-outline-white { display: inline-flex; align-items: center; padding: 16px 32px; background: rgba(255,255,255,0.15); color: white; font-family: inherit; font-size: 16px; font-weight: 600; border: 2px solid rgba(255,255,255,0.4); border-radius: 14px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.25); border-color: white; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--dark); padding: 72px 56px 36px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 56px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 36px; }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.75; margin-top: 20px; max-width: 260px; }
+    .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul li a { font-size: 15px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.25); }
+    .footer-legal { display: flex; gap: 28px; }
+    .footer-legal a { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ─── MODAL ─── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(10,25,15,0.75); backdrop-filter: blur(8px); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--white); border-radius: var(--radius-lg); padding: 52px; width: 100%; max-width: 500px; margin: 20px; position: relative; transform: translateY(24px); transition: transform 0.25s; }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-close { position: absolute; top: 22px; right: 22px; width: 38px; height: 38px; border: none; background: var(--green-light); border-radius: 10px; cursor: pointer; font-size: 18px; color: var(--dark); display: flex; align-items: center; justify-content: center; }
+    .modal h2 { font-size: 28px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; margin-bottom: 8px; }
+    .modal > p { font-size: 15px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.5; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
+    .form-group input, .form-group select { width: 100%; padding: 13px 16px; border: 2px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 15px; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--green); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .modal .btn-primary { width: 100%; justify-content: center; padding: 14px; font-size: 15px; border-radius: 12px; margin-top: 8px; }
+    .modal-success { text-align: center; padding: 20px 0; }
+    .modal-success .success-icon { width: 68px; height: 68px; background: var(--green-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; font-size: 30px; }
+    .modal-success h3 { font-size: 24px; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+    .modal-success p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      .page-hero-inner, .mission-inner, .vision-top { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .approach-item { grid-template-columns: 80px 1fr; }
+      .approach-item p { display: none; }
+      .vision-bottom { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 80px 24px 0; min-height: auto; }
+      .hero-left { padding-bottom: 60px; }
+      .mission, .serve, .why, .approach, .vision, .cta-banner, footer { padding: 72px 24px; }
+      .serve-header, .approach-header { flex-direction: column; gap: 20px; }
+      .serve-grid, .why-grid { grid-template-columns: 1fr; }
+      .vision-bottom { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .cta-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 560px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .approach-item { grid-template-columns: 1fr; }
+      .approach-item-num { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="avenir-logo.png" alt="Avenir Microfinance" style="height:46px;width:auto;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="loans.html" data-en="Loans" data-fr="Prêts">Loans</a></li>
+    <li><a href="index.html#how" data-en="How It Works" data-fr="Comment ça marche">How It Works</a></li>
+    <li><a href="about.html" class="active" data-en="About Us" data-fr="À propos">About Us</a></li>
+    <li><a href="legal.html" data-en="Legal" data-fr="Mentions légales">Legal</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+    </div>
+    <button class="btn-primary" onclick="openModal('apply')" data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <div class="hero-left">
+      <div class="breadcrumb">
+        <a href="index.html" data-en="Home" data-fr="Accueil">Home</a>
+        <span>›</span>
+        <span data-en="About Us" data-fr="À propos">About Us</span>
+      </div>
+      <h1>
+        <span data-en-html="Redefining finance<br>for the <span class='accent'>DRC.</span>" data-fr-html="Redéfinir la finance<br>pour la <span class='accent'>RDC.</span>">Redefining finance<br>for the <span class="accent">DRC.</span></span>
+      </h1>
+      <p data-en="A pioneering digital microfinance bank dedicated to driving financial inclusion across the Democratic Republic of Congo." data-fr="Une banque de microfinance numérique pionnière dédiée à l'inclusion financière en République Démocratique du Congo.">A pioneering digital microfinance bank dedicated to driving financial inclusion across the Democratic Republic of Congo.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-strip">
+        <div class="hero-stat-item">
+          <div class="hero-stat-value">24<span>–48h</span></div>
+          <div class="hero-stat-label" data-en="Average approval time" data-fr="Délai moyen d'approbation">Average approval time</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-value">100<span>%</span></div>
+          <div class="hero-stat-label" data-en="Digital application process" data-fr="Processus de demande numérique">Digital application process</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-value">26<span>+</span></div>
+          <div class="hero-stat-label" data-en="Provinces covered nationwide" data-fr="Provinces couvertes à l'échelle nationale">Provinces covered nationwide</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission">
+  <div class="mission-inner">
+    <div>
+      <div class="eyebrow" data-en="Our Mission" data-fr="Notre Mission">Our Mission</div>
+      <h2 data-en="Empowering communities through accessible credit" data-fr="Autonomiser les communautés grâce au crédit accessible">Empowering communities through accessible credit</h2>
+      <p data-en="We are a pioneering digital microfinance bank dedicated to driving financial inclusion across the Democratic Republic of Congo. Our mission is simple yet transformative: to empower individuals, small businesses, and communities by providing accessible credit solutions without the traditional barriers of collateral." data-fr="Nous sommes une banque de microfinance numérique pionnière dédiée à la promotion de l'inclusion financière en RDC. Notre mission est simple mais transformatrice : autonomiser les individus, les petites entreprises et les communautés en offrant des solutions de crédit accessibles sans les barrières traditionnelles de garantie.">We are a pioneering digital microfinance bank dedicated to driving financial inclusion across the Democratic Republic of Congo. Our mission is simple yet transformative: to empower individuals, small businesses, and communities by providing accessible credit solutions without the traditional barriers of collateral.</p>
+      <p data-en="Operating on a B2B2C model, we bridge the gap between businesses and consumers, ensuring that financial services are not just available but truly inclusive. We believe that access to credit should be a right, not a privilege." data-fr="Opérant sur un modèle B2B2C, nous comblons le fossé entre les entreprises et les consommateurs, en veillant à ce que les services financiers soient non seulement disponibles mais véritablement inclusifs. Nous croyons que l'accès au crédit devrait être un droit, pas un privilège.">Operating on a B2B2C model, we bridge the gap between businesses and consumers, ensuring that financial services are not just available but truly inclusive. We believe that access to credit should be a right, not a privilege.</p>
+    </div>
+    <div class="mission-aside">
+      <div class="mission-aside-item">
+        <div class="mission-aside-bar"></div>
+        <div class="mission-aside-num">24<em>–48h</em></div>
+        <div class="mission-aside-label" data-en="Average approval time" data-fr="Délai moyen d'approbation">Average approval time</div>
+      </div>
+      <div class="mission-aside-item">
+        <div class="mission-aside-bar"></div>
+        <div class="mission-aside-num">100<em>%</em></div>
+        <div class="mission-aside-label" data-en="Digital application process" data-fr="Processus de demande numérique">Digital application process</div>
+      </div>
+      <div class="mission-aside-item">
+        <div class="mission-aside-bar"></div>
+        <div class="mission-aside-num">26<em>+</em></div>
+        <div class="mission-aside-label" data-en="Provinces covered" data-fr="Provinces couvertes">Provinces covered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section class="serve">
+  <div class="serve-inner">
+    <div class="serve-header">
+      <div class="serve-header-left">
+        <div class="eyebrow" data-en="Who We Serve" data-fr="Qui nous servons">Who We Serve</div>
+        <h2 data-en="Built for every Congolese entrepreneur" data-fr="Conçu pour chaque entrepreneur congolais">Built for every Congolese entrepreneur</h2>
+        <p data-en="From market traders to growing SMEs, we serve those left behind by traditional banking." data-fr="Des commerçants de marché aux PME en croissance, nous servons ceux laissés pour compte par le système bancaire traditionnel.">From market traders to growing SMEs, we serve those left behind by traditional banking.</p>
+      </div>
+    </div>
+    <div class="serve-grid">
+      <div class="serve-card">
+        <div class="serve-card-num">01</div>
+        <div class="serve-card-icon">
+          <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3 data-en="Informal Traders" data-fr="Commerçants informels">Informal Traders</h3>
+        <p data-en="Market vendors and small traders who need fast, flexible credit to buy stock and grow their business — no collateral required." data-fr="Vendeurs de marché et petits commerçants qui ont besoin d'un crédit rapide et flexible pour acheter des stocks et développer leur activité, sans garantie requise.">Market vendors and small traders who need fast, flexible credit to buy stock and grow their business — no collateral required.</p>
+      </div>
+      <div class="serve-card">
+        <div class="serve-card-num">02</div>
+        <div class="serve-card-icon">
+          <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+        <h3 data-en="Small & Medium Enterprises" data-fr="Petites et moyennes entreprises">Small & Medium Enterprises</h3>
+        <p data-en="Growing SMEs that need working capital to expand operations, hire staff, and scale their impact across the DRC." data-fr="PME en croissance qui ont besoin de fonds de roulement pour développer leurs activités, embaucher du personnel et étendre leur impact en RDC.">Growing SMEs that need working capital to expand operations, hire staff, and scale their impact across the DRC.</p>
+      </div>
+      <div class="serve-card">
+        <div class="serve-card-num">03</div>
+        <div class="serve-card-icon">
+          <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+        </div>
+        <h3 data-en="Gig & Freelance Workers" data-fr="Travailleurs indépendants">Gig & Freelance Workers</h3>
+        <p data-en="Freelancers in the informal economy who have real income but lack the documentation traditional banks demand." data-fr="Freelances dans l'économie informelle qui ont de vrais revenus mais manquent des documents exigés par les banques traditionnelles.">Freelancers in the informal economy who have real income but lack the documentation traditional banks demand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why">
+  <div class="why-inner">
+    <div class="why-header">
+      <div class="eyebrow" data-en="Why Choose Us" data-fr="Pourquoi nous choisir">Why Choose Us</div>
+      <h2 data-en="A different kind of bank, built for the DRC" data-fr="Un autre type de banque, conçu pour la RDC">A different kind of bank, built for the DRC</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div>
+          <h3 data-en="No Collateral Required" data-fr="Aucune garantie requise">No Collateral Required</h3>
+          <p data-en="We remove barriers to access by offering credit without traditional collateral — just your business history and intention to grow." data-fr="Nous supprimons les barrières d'accès en offrant du crédit sans garantie traditionnelle — juste votre historique d'activité et votre volonté de grandir.">We remove barriers to access by offering credit without traditional collateral — just your business history and intention to grow.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+        </div>
+        <div>
+          <h3 data-en="Digital First" data-fr="Digital d'abord">Digital First</h3>
+          <p data-en="Apply via app, USSD, or agent. No branch visits, no paperwork queues — financial services at your fingertips, 24/7." data-fr="Faites votre demande via l'application, USSD ou agent. Pas de visites en agence, pas de files d'attente — des services financiers à portée de main, 24h/24.">Apply via app, USSD, or agent. No branch visits, no paperwork queues — financial services at your fingertips, 24/7.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+        </div>
+        <div>
+          <h3 data-en="Local Expertise" data-fr="Expertise locale">Local Expertise</h3>
+          <p data-en="With deep knowledge of the Congolese financial landscape, we design products that resonate with local realities and cultural contexts." data-fr="Avec une connaissance approfondie du paysage financier congolais, nous concevons des produits qui correspondent aux réalités et contextes culturels locaux.">With deep knowledge of the Congolese financial landscape, we design products that resonate with local realities and cultural contexts.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="24" height="24" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        </div>
+        <div>
+          <h3 data-en="Inclusive Growth" data-fr="Croissance inclusive">Inclusive Growth</h3>
+          <p data-en="We measure success in lives improved, businesses started, and communities strengthened by access to fair, transparent finance." data-fr="Nous mesurons le succès en vies améliorées, en entreprises créées et en communautés renforcées grâce à une finance équitable et transparente.">We measure success in lives improved, businesses started, and communities strengthened by access to fair, transparent finance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR APPROACH / TEAM -->
+<section class="approach">
+  <div class="approach-inner">
+    <div class="approach-header">
+      <div>
+        <div class="eyebrow" data-en="Our Approach & Team" data-fr="Notre Approche &amp; Équipe">Our Approach &amp; Team</div>
+        <h2 data-en="Experts in banking, technology &amp; the DRC" data-fr="Experts en banque, technologie &amp; RDC">Experts in banking, technology &amp; the DRC</h2>
+      </div>
+      <p data-en="Our strength lies in our people — seasoned experts from traditional banking and cutting-edge technology, united by a shared mission." data-fr="Notre force réside dans nos personnes — des experts chevronnés issus de la banque traditionnelle et de la technologie de pointe, unis par une mission commune.">Our strength lies in our people — seasoned experts from traditional banking and cutting-edge technology, united by a shared mission.</p>
+    </div>
+    <div class="approach-strip">
+      <div class="approach-item">
+        <div class="approach-item-num">01</div>
+        <div>
+          <h3 data-en="Banking Expertise" data-fr="Expertise bancaire">Banking Expertise</h3>
+        </div>
+        <p data-en="Decades of experience in credit, risk management, and regulatory compliance across Central Africa." data-fr="Des décennies d'expérience en crédit, gestion des risques et conformité réglementaire en Afrique centrale.">Decades of experience in credit, risk management, and regulatory compliance across Central Africa.</p>
+      </div>
+      <div class="approach-item">
+        <div class="approach-item-num">02</div>
+        <div>
+          <h3 data-en="Technology Innovation" data-fr="Innovation technologique">Technology Innovation</h3>
+        </div>
+        <p data-en="Cutting-edge digital infrastructure built for speed, reliability, and accessibility across all network conditions." data-fr="Une infrastructure numérique de pointe conçue pour la vitesse, la fiabilité et l'accessibilité dans toutes les conditions de réseau.">Cutting-edge digital infrastructure built for speed, reliability, and accessibility across all network conditions.</p>
+      </div>
+      <div class="approach-item">
+        <div class="approach-item-num">03</div>
+        <div>
+          <h3 data-en="Local Market Knowledge" data-fr="Connaissance du marché local">Local Market Knowledge</h3>
+        </div>
+        <p data-en="Born and raised in the DRC — firsthand understanding of the market, its people, and its enormous potential." data-fr="Nés et élevés en RDC — une compréhension directe du marché, de ses habitants et de son énorme potentiel.">Born and raised in the DRC — firsthand understanding of the market, its people, and its enormous potential.</p>
+      </div>
+      <div class="approach-item">
+        <div class="approach-item-num">04</div>
+        <div>
+          <h3 data-en="Impact Focus" data-fr="Focus sur l'impact">Impact Focus</h3>
+        </div>
+        <p data-en="We measure success not in revenues alone, but in livelihoods improved and communities strengthened across the nation." data-fr="Nous mesurons le succès non seulement en revenus, mais en moyens de subsistance améliorés et en communautés renforcées à travers le pays.">We measure success not in revenues alone, but in livelihoods improved and communities strengthened across the nation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="vision">
+  <div class="vision-inner">
+    <div class="vision-top">
+      <div>
+        <div class="eyebrow" data-en="Our Vision" data-fr="Notre Vision">Our Vision</div>
+        <h2 data-en="Setting new standards for financial inclusion in Africa" data-fr="Établir de nouvelles normes pour l'inclusion financière en Afrique">Setting new standards for financial inclusion in Africa</h2>
+        <p data-en="We envision a future where every Congolese citizen and business has the opportunity to thrive financially. By harnessing technology and expertise, we aim to redefine banking in the DRC and set new standards for financial inclusion across the continent." data-fr="Nous envisageons un avenir où chaque citoyen et entreprise congolais a la possibilité de prospérer financièrement. En exploitant la technologie et l'expertise, nous visons à redéfinir la banque en RDC et à établir de nouvelles normes d'inclusion financière sur le continent.">We envision a future where every Congolese citizen and business has the opportunity to thrive financially. By harnessing technology and expertise, we aim to redefine banking in the DRC and set new standards for financial inclusion across the continent.</p>
+      </div>
+      <div class="vision-quote-block">
+        <blockquote data-en="&ldquo;Access to credit should be a right, not a privilege. We are here to make that a reality for every Congolese.&rdquo;" data-fr="&laquo;&nbsp;L'accès au crédit devrait être un droit, pas un privilège. Nous sommes là pour en faire une réalité pour chaque Congolais.&nbsp;&raquo;">&ldquo;Access to credit should be a right, not a privilege. We are here to make that a reality for every Congolese.&rdquo;</blockquote>
+        <cite data-en="Avenir Microfinance — Core Belief" data-fr="Avenir Microfinance — Conviction fondamentale">Avenir Microfinance — Core Belief</cite>
+      </div>
+    </div>
+    <div class="vision-bottom">
+      <div class="vision-pillar">
+        <div class="vision-pillar-icon">
+          <svg width="20" height="20" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4 4-4-4"/><path d="M12 8v8"/></svg>
+        </div>
+        <h3 data-en="Inclusive Access" data-fr="Accès inclusif">Inclusive Access</h3>
+        <p data-en="Financial tools available to every Congolese — regardless of location, income level, or employment status." data-fr="Des outils financiers accessibles à chaque Congolais, quelle que soit sa situation géographique, son niveau de revenu ou son statut professionnel.">Financial tools available to every Congolese — regardless of location, income level, or employment status.</p>
+      </div>
+      <div class="vision-pillar">
+        <div class="vision-pillar-icon">
+          <svg width="20" height="20" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 data-en="Technology-Driven" data-fr="Piloté par la technologie">Technology-Driven</h3>
+        <p data-en="Leveraging data, AI and mobile-first design to deliver smarter, faster, fairer financial products." data-fr="S'appuyer sur les données, l'IA et la conception mobile-first pour proposer des produits financiers plus intelligents, plus rapides et plus équitables.">Leveraging data, AI and mobile-first design to deliver smarter, faster, fairer financial products.</p>
+      </div>
+      <div class="vision-pillar">
+        <div class="vision-pillar-icon">
+          <svg width="20" height="20" fill="none" stroke="#5ab92c" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        </div>
+        <h3 data-en="National Growth" data-fr="Croissance nationale">National Growth</h3>
+        <p data-en="Fuelling the DRC's economic development one loan, one business, one community at a time." data-fr="Alimenter le développement économique de la RDC un prêt, une entreprise, une communauté à la fois.">Fuelling the DRC's economic development one loan, one business, one community at a time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2 data-en="Ready to grow your business?" data-fr="Prêt à développer votre activité ?">Ready to grow your business?</h2>
+      <p data-en="Apply in minutes. Get funded fast." data-fr="Faites votre demande en quelques minutes. Obtenez un financement rapidement.">Apply in minutes. Get funded fast.</p>
+    </div>
+    <div class="cta-buttons">
+      <button class="btn-dark" onclick="openModal('apply')" data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</button>
+      <button class="btn-outline-white" onclick="openModal('eligibility')" data-en="Check Eligibility" data-fr="Vérifier mon éligibilité">Check Eligibility</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <span style="display:inline-block;background:white;border-radius:10px;padding:6px 14px;">
+            <img src="avenir-logo.png" alt="Avenir Microfinance" style="height:36px;width:auto;display:block;" />
+          </span>
+        </a>
+        <p data-en="Digital credit and financial solutions built for underserved communities, SMEs and informal businesses across the DRC." data-fr="Des solutions financières numériques conçues pour les communautés mal desservies, les PME et les entreprises informelles en RDC.">Digital credit and financial solutions built for underserved communities, SMEs and informal businesses across the DRC.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Company" data-fr="Entreprise">Company</h4>
+        <ul>
+          <li><a href="about.html" data-en="About Us" data-fr="À propos">About Us</a></li>
+          <li><a href="index.html#how" data-en="How It Works" data-fr="Comment ça marche">How It Works</a></li>
+          <li><a href="#" data-en="Careers" data-fr="Carrières">Careers</a></li>
+          <li><a href="#" data-en="Press" data-fr="Presse">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Legal" data-fr="Mentions légales">Legal</h4>
+        <ul>
+          <li><a href="legal.html#privacy" data-en="Privacy Policy" data-fr="Confidentialité">Privacy Policy</a></li>
+          <li><a href="legal.html#terms" data-en="Terms &amp; Conditions" data-fr="Conditions">Terms &amp; Conditions</a></li>
+          <li><a href="legal.html#disclosures" data-en="Loan Disclosures" data-fr="Divulgations">Loan Disclosures</a></li>
+          <li><a href="legal.html#aml" data-en="AML / CTF Policy" data-fr="Politique LBC/FT">AML / CTF Policy</a></li>
+          <li><a href="legal.html#responsible" data-en="Responsible Lending" data-fr="Prêt responsable">Responsible Lending</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Contact" data-fr="Contact">Contact</h4>
+        <ul>
+          <li><a href="mailto:customersupport@avenirmfb.com">customersupport@avenirmfb.com</a></li>
+          <li><a href="#" data-en="Gombe, Kinshasa, DRC" data-fr="Gombe, Kinshasa, RDC">Gombe, Kinshasa, DRC</a></li>
+          <li><a href="tel:+24397">+243 97*********</a></li>
+          <li><a href="legal.html#privacy" data-en="Privacy Policy" data-fr="Politique de confidentialité">Privacy Policy</a></li>
+          <li><a href="legal.html#terms" data-en="Terms & Conditions" data-fr="Conditions d'utilisation">Terms & Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy"><span data-en="© 2026 Avenir Microfinance. All rights reserved." data-fr="© 2026 Avenir Microfinance. Tous droits réservés.">© 2026 Avenir Microfinance. All rights reserved.</span></div>
+      <div class="footer-legal">
+        <a href="legal.html#privacy" data-en="Privacy Policy" data-fr="Confidentialité">Privacy Policy</a>
+        <a href="legal.html#terms" data-en="Terms & Conditions" data-fr="Conditions d'utilisation">Terms & Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- APPLY MODAL -->
+<div class="modal-overlay" id="modal-apply" onclick="handleOverlayClick(event,'modal-apply')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-apply')">✕</button>
+    <div id="apply-form-content">
+      <h2 data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</h2>
+      <p data-en="Fill in your details and we'll get back to you within 48 hours." data-fr="Remplissez vos coordonnées et nous vous répondrons dans les 48 heures.">Fill in your details and we'll get back to you within 48 hours.</p>
+      <div class="form-row">
+        <div class="form-group"><label data-en="First Name" data-fr="Prénom">First Name</label><input type="text" placeholder="Marie" /></div>
+        <div class="form-group"><label data-en="Last Name" data-fr="Nom">Last Name</label><input type="text" placeholder="Lukeba" /></div>
+      </div>
+      <div class="form-group"><label data-en="Phone Number" data-fr="Numéro de téléphone">Phone Number</label><input type="tel" placeholder="+243 81 234 5678" /></div>
+      <div class="form-group"><label data-en="Loan Amount (USD)" data-fr="Montant du prêt (USD)">Loan Amount (USD)</label><input type="number" placeholder="500" /></div>
+      <button class="btn-primary" onclick="submitApply()"><span data-en="Submit Application" data-fr="Soumettre la demande">Submit Application</span></button>
+    </div>
+    <div id="apply-success" class="modal-success" style="display:none;">
+      <div class="success-icon">✓</div>
+      <h3 data-en="Application Received!" data-fr="Demande reçue !">Application Received!</h3>
+      <p data-en="Thank you! We'll review your application and contact you within 48 hours." data-fr="Merci ! Nous examinerons votre dossier et vous contacterons dans les 48 heures.">Thank you! We'll review your application and contact you within 48 hours.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ELIGIBILITY MODAL -->
+<div class="modal-overlay" id="modal-eligibility" onclick="handleOverlayClick(event,'modal-eligibility')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-eligibility')">✕</button>
+    <div id="eligibility-form-content">
+      <h2 data-en="Check Your Eligibility" data-fr="Vérifier votre éligibilité">Check Your Eligibility</h2>
+      <p data-en="Answer a few quick questions to see if you qualify." data-fr="Répondez à quelques questions rapides pour voir si vous êtes éligible.">Answer a few quick questions to see if you qualify.</p>
+      <div class="form-group"><label data-en="Are you 18 or older?" data-fr="Avez-vous 18 ans ou plus ?">Are you 18 or older?</label><select id="elig-age"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+      <div class="form-group"><label data-en="DRC phone number?" data-fr="Numéro de téléphone RDC ?">DRC phone number?</label><select id="elig-phone"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+      <div class="form-group"><label data-en="Source of income or business?" data-fr="Source de revenus ou activité ?">Source of income or business?</label><select id="elig-income"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+      <button class="btn-primary" onclick="checkEligibility()"><span data-en="Check Now" data-fr="Vérifier maintenant">Check Now</span></button>
+    </div>
+    <div id="eligibility-result" style="display:none;" class="modal-success">
+      <div class="success-icon" id="elig-icon">✓</div>
+      <h3 id="elig-result-title">You may qualify!</h3>
+      <p id="elig-result-text">You appear to be eligible for an Avenir loan.</p>
+      <button class="btn-primary" style="margin-top:20px;width:100%;justify-content:center;" onclick="closeModal('modal-eligibility');openModal('apply')"><span data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'fr';
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.textContent === lang.toUpperCase()));
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-en]').forEach(el => { if (el.tagName !== 'OPTION') el.textContent = lang === 'fr' ? el.dataset.fr : el.dataset.en; });
+    document.querySelectorAll('[data-en-html]').forEach(el => { el.innerHTML = lang === 'fr' ? el.dataset.frHtml : el.dataset.enHtml; });
+  }
+  function openModal(which) {
+    if (which === 'apply') { document.getElementById('apply-form-content').style.display = ''; document.getElementById('apply-success').style.display = 'none'; }
+    if (which === 'eligibility') { document.getElementById('eligibility-form-content').style.display = ''; document.getElementById('eligibility-result').style.display = 'none'; }
+    document.getElementById('modal-' + which).classList.add('open');
+  }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  function handleOverlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open')); });
+  function submitApply() { document.getElementById('apply-form-content').style.display = 'none'; document.getElementById('apply-success').style.display = 'block'; }
+  function checkEligibility() {
+    const age = document.getElementById('elig-age').value;
+    const phone = document.getElementById('elig-phone').value;
+    const income = document.getElementById('elig-income').value;
+    if (!age || !phone || !income) { alert('Please answer all questions.'); return; }
+    const eligible = age === 'yes' && phone === 'yes' && income === 'yes';
+    document.getElementById('eligibility-form-content').style.display = 'none';
+    document.getElementById('eligibility-result').style.display = 'block';
+    const icon = document.getElementById('elig-icon');
+    if (eligible) { icon.textContent = '✓'; icon.style.background = 'var(--green-light)'; document.getElementById('elig-result-title').textContent = 'You may qualify!'; document.getElementById('elig-result-text').textContent = 'Based on your answers, you appear to be eligible for an Avenir loan.'; }
+    else { icon.textContent = '✗'; icon.style.background = '#fef2f2'; icon.style.color = '#dc2626'; document.getElementById('elig-result-title').textContent = 'Not yet eligible'; document.getElementById('elig-result-text').textContent = "You don't meet all criteria yet. Contact us to learn more."; const btn = document.querySelector('#eligibility-result button'); if (btn) btn.style.display = 'none'; }
+  }
+</script>
+<script>setLang('fr');</script>
+</body>
+</html>
