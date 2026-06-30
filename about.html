@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us — Avenir Microfinance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -296,7 +297,7 @@
 <!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="avenir-logo.png" alt="Avenir Microfinance" style="height:58px;width:auto;" />
+    <img src="avenir-logo.png" alt="Avenir Microfinance" style="height:46px;width:auto;" />
   </a>
   <ul class="nav-links">
     <li><a href="loans.html" data-en="Loans" data-fr="Prêts">Loans</a></li>
@@ -306,8 +307,8 @@
   </ul>
   <div class="nav-right">
     <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
     </div>
     <button class="btn-primary" onclick="openModal('apply')" data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</button>
   </div>
@@ -596,7 +597,7 @@
         <ul>
           <li><a href="mailto:customersupport@avenirmfb.com">customersupport@avenirmfb.com</a></li>
           <li><a href="#" data-en="Gombe, Kinshasa, DRC" data-fr="Gombe, Kinshasa, RDC">Gombe, Kinshasa, DRC</a></li>
-          <li><a href="tel:+243976738447">+243 97 673 8447</a></li>
+          <li><a href="tel:+24397">+243 97*********</a></li>
           <li><a href="legal.html#privacy" data-en="Privacy Policy" data-fr="Politique de confidentialité">Privacy Policy</a></li>
           <li><a href="legal.html#terms" data-en="Terms & Conditions" data-fr="Conditions d'utilisation">Terms & Conditions</a></li>
         </ul>
@@ -657,7 +658,7 @@
 </div>
 
 <script>
-  let currentLang = 'en';
+  let currentLang = 'fr';
   function setLang(lang) {
     currentLang = lang;
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.textContent === lang.toUpperCase()));
@@ -687,5 +688,6 @@
     else { icon.textContent = '✗'; icon.style.background = '#fef2f2'; icon.style.color = '#dc2626'; document.getElementById('elig-result-title').textContent = 'Not yet eligible'; document.getElementById('elig-result-text').textContent = "You don't meet all criteria yet. Contact us to learn more."; const btn = document.querySelector('#eligibility-result button'); if (btn) btn.style.display = 'none'; }
   }
 </script>
+<script>setLang('fr');</script>
 </body>
 </html>

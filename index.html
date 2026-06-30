@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Avenir Microfinance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1010,7 +1011,7 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <img src="avenir-logo.png" alt="Avenir Microfinance" style="height:58px;width:auto;" />
+    <img src="avenir-logo.png" alt="Avenir Microfinance" style="height:46px;width:auto;" />
   </a>
 
   <ul class="nav-links">
@@ -1023,8 +1024,8 @@
 
   <div class="nav-right">
     <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
     </div>
     <button class="btn-primary" onclick="openModal('apply')" data-en="Apply for Credit" data-fr="Demander un crédit">Apply for Credit</button>
   </div>
@@ -1288,7 +1289,7 @@
         <ul>
           <li><a href="mailto:customersupport@avenirmfb.com">customersupport@avenirmfb.com</a></li>
           <li><a href="#" data-en="Gombe, Kinshasa, DRC" data-fr="Gombe, Kinshasa, RDC">Gombe, Kinshasa, DRC</a></li>
-          <li><a href="tel:+243976738447">+243 97 673 8447</a></li>
+          <li><a href="tel:+24397">+243 97*********</a></li>
           <li><a href="legal.html#privacy" data-en="Privacy Policy" data-fr="Politique de confidentialité">Privacy Policy</a></li>
           <li><a href="legal.html#terms" data-en="Terms & Conditions" data-fr="Conditions d'utilisation">Terms & Conditions</a></li>
         </ul>
@@ -1406,7 +1407,7 @@
     "accentColor": "#5ab92c",
     "darkColor": "#0f2d1f",
     "bodyFont": "Plus Jakarta Sans",
-    "navStyle": "dark",
+    "navStyle": "light",
     "heroLayout": "split",
     "showTrustBar": true,
     "showHowItWorks": true,
@@ -1524,7 +1525,7 @@
 </script>
 <script>
   // ─── LANGUAGE ───
-  let currentLang = 'en';
+  let currentLang = 'fr';
 
   function setLang(lang) {
     currentLang = lang;
@@ -1627,6 +1628,9 @@
       result.querySelector('button') && (result.querySelector('button').style.display = 'none');
     }
   }
+
+  // Default the site to French on load
+  setLang('fr');
 </script>
 <div id="tweaks-root"></div>
 </body>
